@@ -1,0 +1,735 @@
+{
+  "schema_version": 1,
+  "investigation_id": "a5169d27-e284-4543-8452-89ed67826a7f",
+  "created_at": "2026-10-30T08:13:04.643176+00:00",
+  "execution": "live_local",
+  "model": "qwen3.5:latest",
+  "prompt_version": "investigator-v1",
+  "tool_schema_version": 1,
+  "limits": {
+    "turns": 10,
+    "tools": 24,
+    "tokens": 24000,
+    "context": 16384,
+    "output": 512,
+    "seconds": 300
+  },
+  "artifact_sha256": "6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5",
+  "events": [
+    {
+      "seq": 1,
+      "elapsed_seconds": 0.0005001250001441804,
+      "kind": "investigation_started",
+      "data": {
+        "goal": "Investigate deletion compliance, source ownership, contradictions and missing proof."
+      }
+    },
+    {
+      "seq": 2,
+      "elapsed_seconds": 0.0036234169997442223,
+      "kind": "model_requested",
+      "data": {
+        "turn": 1
+      }
+    },
+    {
+      "seq": 3,
+      "elapsed_seconds": 28.840718542000104,
+      "kind": "model_completed",
+      "data": {
+        "turn": 1,
+        "prompt_tokens": 964,
+        "output_tokens": 14,
+        "eval_duration_ns": 2904250000,
+        "total_duration_ns": 28813949250,
+        "done_reason": "stop",
+        "tool_calls": [
+          {
+            "id": "call_fitdrghn",
+            "function": {
+              "index": 0,
+              "name": "get_context",
+              "arguments": {}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seq": 4,
+      "elapsed_seconds": 28.84335925000005,
+      "kind": "tool_requested",
+      "data": {
+        "name": "get_context",
+        "arguments": {}
+      }
+    },
+    {
+      "seq": 5,
+      "elapsed_seconds": 28.848369542,
+      "kind": "tool_returned",
+      "data": {
+        "name": "get_context",
+        "result": {
+          "request": {
+            "text": "Please delete my account.",
+            "identifier": {
+              "kind": "email",
+              "value": "river@example.test"
+            },
+            "requested_at": "2026-01-19T12:00:00Z",
+            "audit_at": "2026-01-20T12:00:00Z",
+            "evidence_cutoff": null,
+            "require_ingestion_time": false
+          },
+          "subject": "person-river",
+          "authorization": "AUTHORIZED",
+          "targets": [
+            {
+              "system": "failover",
+              "resource": "profile-river",
+              "category": "PROFILE",
+              "conditions": {},
+              "depends_on": []
+            }
+          ],
+          "targets_truncated": false,
+          "unresolved": [],
+          "instruction": "Inspect evidence with tools; conclusions are issued by the deterministic kernel."
+        }
+      }
+    },
+    {
+      "seq": 6,
+      "elapsed_seconds": 28.854119541999808,
+      "kind": "model_requested",
+      "data": {
+        "turn": 2
+      }
+    },
+    {
+      "seq": 7,
+      "elapsed_seconds": 60.42952837499979,
+      "kind": "model_completed",
+      "data": {
+        "turn": 2,
+        "prompt_tokens": 1171,
+        "output_tokens": 117,
+        "eval_duration_ns": 27715533000,
+        "total_duration_ns": 31560988375,
+        "done_reason": "stop",
+        "tool_calls": [
+          {
+            "id": "call_09du4gjb",
+            "function": {
+              "index": 0,
+              "name": "inspect_resource",
+              "arguments": {
+                "system": "failover",
+                "resource": "profile-river"
+              }
+            }
+          },
+          {
+            "id": "call_szzbdsjo",
+            "function": {
+              "index": 1,
+              "name": "search_evidence",
+              "arguments": {
+                "query": "river@example.test",
+                "offset": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seq": 8,
+      "elapsed_seconds": 60.43203649999987,
+      "kind": "tool_requested",
+      "data": {
+        "name": "inspect_resource",
+        "arguments": {
+          "system": "failover",
+          "resource": "profile-river"
+        }
+      }
+    },
+    {
+      "seq": 9,
+      "elapsed_seconds": 60.43964054199978,
+      "kind": "tool_returned",
+      "data": {
+        "name": "inspect_resource",
+        "result": {
+          "target": {
+            "system": "failover",
+            "resource": "profile-river",
+            "category": "PROFILE",
+            "conditions": {},
+            "depends_on": []
+          },
+          "history": [
+            {
+              "id": "readback",
+              "state": "PRESENT",
+              "kind": "READBACK",
+              "coverage": "EXACT_RESOURCE",
+              "observed_at": "2026-01-20T12:00:00+00:00",
+              "source": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/observations/0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 10,
+      "elapsed_seconds": 60.43995429200004,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "river@example.test",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "seq": 11,
+      "elapsed_seconds": 60.44032062499991,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 1,
+          "offset": 0,
+          "items": [
+            {
+              "id": "readback",
+              "system": "failover",
+              "resource": "profile-river",
+              "kind": "READBACK",
+              "source": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/observations/0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 12,
+      "elapsed_seconds": 60.44560387499996,
+      "kind": "model_requested",
+      "data": {
+        "turn": 3
+      }
+    },
+    {
+      "seq": 13,
+      "elapsed_seconds": 81.37646595800015,
+      "kind": "model_completed",
+      "data": {
+        "turn": 3,
+        "prompt_tokens": 1605,
+        "output_tokens": 45,
+        "eval_duration_ns": 10924333000,
+        "total_duration_ns": 20920239042,
+        "done_reason": "stop",
+        "tool_calls": [
+          {
+            "id": "call_c7z7y0oa",
+            "function": {
+              "index": 0,
+              "name": "read_evidence",
+              "arguments": {
+                "evidence_id": "readback"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seq": 14,
+      "elapsed_seconds": 81.3765652080001,
+      "kind": "tool_requested",
+      "data": {
+        "name": "read_evidence",
+        "arguments": {
+          "evidence_id": "readback"
+        }
+      }
+    },
+    {
+      "seq": 15,
+      "elapsed_seconds": 81.37671795799997,
+      "kind": "tool_returned",
+      "data": {
+        "name": "read_evidence",
+        "result": {
+          "observation": {
+            "system": "failover",
+            "resource": "profile-river",
+            "id": "readback",
+            "identifier": {
+              "kind": "email",
+              "value": "river@example.test"
+            },
+            "observed_at": "2026-01-20T12:00:00Z",
+            "captured_at": "2026-01-20T12:00:00Z",
+            "event_at": null,
+            "ingested_at": null,
+            "available_at": null,
+            "kind": "READBACK",
+            "state": "PRESENT",
+            "coverage": "EXACT_RESOURCE",
+            "fields": {},
+            "unlinking_verified": false,
+            "archive_present": null
+          },
+          "source": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/observations/0"
+        }
+      }
+    },
+    {
+      "seq": 16,
+      "elapsed_seconds": 81.37857399999984,
+      "kind": "model_requested",
+      "data": {
+        "turn": 4
+      }
+    },
+    {
+      "seq": 17,
+      "elapsed_seconds": 109.78086070800009,
+      "kind": "model_completed",
+      "data": {
+        "turn": 4,
+        "prompt_tokens": 1893,
+        "output_tokens": 94,
+        "eval_duration_ns": 23132352000,
+        "total_duration_ns": 28397780625,
+        "done_reason": "stop",
+        "tool_calls": [
+          {
+            "id": "call_s9eaq8fg",
+            "function": {
+              "index": 0,
+              "name": "search_evidence",
+              "arguments": {
+                "query": "river@example.test",
+                "offset": 8
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seq": 18,
+      "elapsed_seconds": 109.78128137500016,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "river@example.test",
+          "offset": 8
+        }
+      }
+    },
+    {
+      "seq": 19,
+      "elapsed_seconds": 109.78174175000004,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 1,
+          "offset": 8,
+          "items": []
+        }
+      }
+    },
+    {
+      "seq": 20,
+      "elapsed_seconds": 109.78469874999973,
+      "kind": "model_requested",
+      "data": {
+        "turn": 5
+      }
+    },
+    {
+      "seq": 21,
+      "elapsed_seconds": 129.2848932920001,
+      "kind": "model_completed",
+      "data": {
+        "turn": 5,
+        "prompt_tokens": 2023,
+        "output_tokens": 66,
+        "eval_duration_ns": 16963633999,
+        "total_duration_ns": 19494193334,
+        "done_reason": "stop",
+        "tool_calls": [
+          {
+            "id": "call_y2vllu0j",
+            "function": {
+              "index": 0,
+              "name": "resolve_identity",
+              "arguments": {
+                "kind": "email",
+                "value": "river@example.test"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seq": 22,
+      "elapsed_seconds": 129.29480220799996,
+      "kind": "tool_requested",
+      "data": {
+        "name": "resolve_identity",
+        "arguments": {
+          "kind": "email",
+          "value": "river@example.test"
+        }
+      }
+    },
+    {
+      "seq": 23,
+      "elapsed_seconds": 129.29825325000002,
+      "kind": "tool_returned",
+      "data": {
+        "name": "resolve_identity",
+        "result": {
+          "rows": [
+            {
+              "identity": {
+                "subject": "person-river",
+                "identifier": {
+                  "kind": "email",
+                  "value": "river@example.test"
+                },
+                "valid_from": "2025-01-01T00:00:00Z",
+                "valid_to": null,
+                "recorded_at": "2025-01-01T00:00:00Z"
+              },
+              "source": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/identities/0"
+            }
+          ],
+          "ambiguous": false
+        }
+      }
+    },
+    {
+      "seq": 24,
+      "elapsed_seconds": 129.34297683299974,
+      "kind": "model_requested",
+      "data": {
+        "turn": 6
+      }
+    },
+    {
+      "seq": 25,
+      "elapsed_seconds": 155.9453477500001,
+      "kind": "model_completed",
+      "data": {
+        "turn": 6,
+        "prompt_tokens": 2276,
+        "output_tokens": 73,
+        "eval_duration_ns": 21432056000,
+        "total_duration_ns": 26592534333,
+        "done_reason": "stop",
+        "tool_calls": [
+          {
+            "id": "call_3o80tdnd",
+            "function": {
+              "index": 0,
+              "name": "search_evidence",
+              "arguments": {
+                "query": "deletion",
+                "offset": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seq": 26,
+      "elapsed_seconds": 155.94579487500005,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "deletion",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "seq": 27,
+      "elapsed_seconds": 155.94626395800015,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 0,
+          "offset": 0,
+          "items": []
+        }
+      }
+    },
+    {
+      "seq": 28,
+      "elapsed_seconds": 155.9523641669998,
+      "kind": "model_requested",
+      "data": {
+        "turn": 7
+      }
+    },
+    {
+      "seq": 29,
+      "elapsed_seconds": 167.5261704579998,
+      "kind": "model_completed",
+      "data": {
+        "turn": 7,
+        "prompt_tokens": 2385,
+        "output_tokens": 38,
+        "eval_duration_ns": 9264625000,
+        "total_duration_ns": 11568167042,
+        "done_reason": "stop",
+        "tool_calls": [
+          {
+            "id": "call_wana8dk5",
+            "function": {
+              "index": 0,
+              "name": "search_evidence",
+              "arguments": {
+                "query": "delete",
+                "offset": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seq": 30,
+      "elapsed_seconds": 167.52637745799984,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "delete",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "seq": 31,
+      "elapsed_seconds": 167.52652920799983,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 0,
+          "offset": 0,
+          "items": []
+        }
+      }
+    },
+    {
+      "seq": 32,
+      "elapsed_seconds": 167.52802558299982,
+      "kind": "model_requested",
+      "data": {
+        "turn": 8
+      }
+    },
+    {
+      "seq": 33,
+      "elapsed_seconds": 182.7025779999999,
+      "kind": "model_completed",
+      "data": {
+        "turn": 8,
+        "prompt_tokens": 2459,
+        "output_tokens": 55,
+        "eval_duration_ns": 13553535000,
+        "total_duration_ns": 15169983209,
+        "done_reason": "stop",
+        "tool_calls": [
+          {
+            "id": "call_uicibl46",
+            "function": {
+              "index": 0,
+              "name": "search_evidence",
+              "arguments": {
+                "query": "profile-river",
+                "offset": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seq": 34,
+      "elapsed_seconds": 182.7027039999998,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "profile-river",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "seq": 35,
+      "elapsed_seconds": 182.70307683300007,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 1,
+          "offset": 0,
+          "items": [
+            {
+              "id": "readback",
+              "system": "failover",
+              "resource": "profile-river",
+              "kind": "READBACK",
+              "source": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/observations/0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 36,
+      "elapsed_seconds": 182.70894762499984,
+      "kind": "deterministic_conclusion",
+      "data": {
+        "report": {
+          "conclusion": "NON_COMPLIANT",
+          "authorization": "AUTHORIZED",
+          "subject": "person-river",
+          "artifact_sha256": "6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5",
+          "assessments": [
+            {
+              "system": "failover",
+              "resource": "profile-river",
+              "status": "VIOLATED",
+              "reason": "Policy violation observed",
+              "evidence": [
+                "readback"
+              ]
+            }
+          ],
+          "recommendations": [
+            {
+              "system": "failover",
+              "resource": "profile-river",
+              "action": "DELETE",
+              "verification_required": true,
+              "execution_authorized": false
+            }
+          ],
+          "unresolved": [],
+          "validation_errors": [],
+          "provenance": {
+            "readback": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/observations/0",
+            "identities:0": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/identities/0",
+            "targets:0": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/targets/0",
+            "rules:0": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/rules/0"
+          }
+        },
+        "execution_status": "context_or_token_budget_exhausted"
+      }
+    }
+  ],
+  "usage": {
+    "model_calls": 8,
+    "input_tokens": 14776,
+    "output_tokens": 502
+  },
+  "status": "context_or_token_budget_exhausted",
+  "duration_seconds": 182.708872917,
+  "tool_calls": 9,
+  "accepted": [],
+  "rejected": [],
+  "completion": null,
+  "report": {
+    "conclusion": "NON_COMPLIANT",
+    "authorization": "AUTHORIZED",
+    "subject": "person-river",
+    "artifact_sha256": "6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5",
+    "assessments": [
+      {
+        "system": "failover",
+        "resource": "profile-river",
+        "status": "VIOLATED",
+        "reason": "Policy violation observed",
+        "evidence": [
+          "readback"
+        ]
+      }
+    ],
+    "recommendations": [
+      {
+        "system": "failover",
+        "resource": "profile-river",
+        "action": "DELETE",
+        "verification_required": true,
+        "execution_authorized": false
+      }
+    ],
+    "unresolved": [],
+    "validation_errors": [],
+    "provenance": {
+      "readback": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/observations/0",
+      "identities:0": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/identities/0",
+      "targets:0": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/targets/0",
+      "rules:0": "sha256:6ef0e1cbc411138972f59807bc57ace766497c7419599e24f980b3a053e11fc5#/rules/0"
+    }
+  },
+  "runtime_readiness": {
+    "runtime": {
+      "version": "0.40.13"
+    },
+    "model": {
+      "name": "qwen3.5:latest",
+      "model": "qwen3.5:latest",
+      "modified_at": "2026-03-26T13:48:34.255764991+05:30",
+      "size": 6594474711,
+      "digest": "6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "9.7B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 262144,
+        "embedding_length": 4096,
+        "runner": "ggml"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ]
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ]
+  }
+}

@@ -1,0 +1,548 @@
+{
+  "schema_version": 1,
+  "investigation_id": "dc5a9543-bb0b-419c-88f0-c0f5e14a3ca3",
+  "created_at": "2026-10-30T08:20:35.294730+00:00",
+  "execution": "live_local",
+  "model": "qwen3.5:latest",
+  "prompt_version": "investigator-v2",
+  "tool_schema_version": 1,
+  "limits": {
+    "turns": 8,
+    "tools": 24,
+    "tokens": 64000,
+    "context": 16384,
+    "output": 512,
+    "seconds": 300
+  },
+  "artifact_sha256": "a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02",
+  "events": [
+    {
+      "seq": 1,
+      "elapsed_seconds": 0.0007580420001431776,
+      "kind": "investigation_started",
+      "data": {
+        "goal": "Investigate deletion compliance, source ownership, contradictions and missing proof."
+      }
+    },
+    {
+      "seq": 2,
+      "elapsed_seconds": 0.0036941250000381842,
+      "kind": "model_requested",
+      "data": {
+        "turn": 1
+      }
+    },
+    {
+      "seq": 3,
+      "elapsed_seconds": 29.361929374999818,
+      "kind": "model_completed",
+      "data": {
+        "turn": 1,
+        "prompt_tokens": 1051,
+        "output_tokens": 49,
+        "eval_duration_ns": 12664120000,
+        "total_duration_ns": 29349802625,
+        "done_reason": "stop",
+        "tool_call_count": 1
+      }
+    },
+    {
+      "seq": 4,
+      "elapsed_seconds": 29.363376708000033,
+      "kind": "tool_requested",
+      "data": {
+        "name": "get_context",
+        "arguments": {}
+      }
+    },
+    {
+      "seq": 5,
+      "elapsed_seconds": 29.36413708300006,
+      "kind": "tool_returned",
+      "data": {
+        "name": "get_context",
+        "result": {
+          "request": {
+            "text": "Please delete my account.",
+            "identifier": {
+              "kind": "email",
+              "value": "river@example.test"
+            },
+            "requested_at": "2026-01-19T12:00:00Z",
+            "audit_at": "2026-01-20T12:00:00Z",
+            "evidence_cutoff": null,
+            "require_ingestion_time": false
+          },
+          "subject": "person-river",
+          "authorization": "AUTHORIZED",
+          "targets": [
+            {
+              "system": "accounts",
+              "resource": "profile-river",
+              "category": "PROFILE",
+              "conditions": {},
+              "depends_on": []
+            }
+          ],
+          "targets_truncated": false,
+          "unresolved": [
+            "accounts/profile-river: Insufficient fields or coverage"
+          ],
+          "instruction": "Inspect evidence with tools; conclusions are issued by the deterministic kernel."
+        }
+      }
+    },
+    {
+      "seq": 6,
+      "elapsed_seconds": 29.383746041999984,
+      "kind": "model_requested",
+      "data": {
+        "turn": 2
+      }
+    },
+    {
+      "seq": 7,
+      "elapsed_seconds": 133.66334233299995,
+      "kind": "model_completed",
+      "data": {
+        "turn": 2,
+        "prompt_tokens": 1303,
+        "output_tokens": 175,
+        "eval_duration_ns": 43385838000,
+        "total_duration_ns": 104272038708,
+        "done_reason": "stop",
+        "tool_call_count": 1
+      }
+    },
+    {
+      "seq": 8,
+      "elapsed_seconds": 133.66419841700008,
+      "kind": "tool_requested",
+      "data": {
+        "name": "inspect_resource",
+        "arguments": {
+          "system": "accounts",
+          "resource": "profile-river"
+        }
+      }
+    },
+    {
+      "seq": 9,
+      "elapsed_seconds": 133.66473237499986,
+      "kind": "tool_returned",
+      "data": {
+        "name": "inspect_resource",
+        "result": {
+          "target": {
+            "system": "accounts",
+            "resource": "profile-river",
+            "category": "PROFILE",
+            "conditions": {},
+            "depends_on": []
+          },
+          "history": [
+            {
+              "id": "readback",
+              "state": "UNKNOWN",
+              "kind": "READBACK",
+              "coverage": "EXACT_RESOURCE",
+              "observed_at": "2026-01-20T12:00:00+00:00",
+              "source": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/observations/0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 10,
+      "elapsed_seconds": 133.66777462500022,
+      "kind": "model_requested",
+      "data": {
+        "turn": 3
+      }
+    },
+    {
+      "seq": 11,
+      "elapsed_seconds": 193.5058032920001,
+      "kind": "model_completed",
+      "data": {
+        "turn": 3,
+        "prompt_tokens": 1669,
+        "output_tokens": 217,
+        "eval_duration_ns": 53247029000,
+        "total_duration_ns": 59833861208,
+        "done_reason": "stop",
+        "tool_call_count": 1
+      }
+    },
+    {
+      "seq": 12,
+      "elapsed_seconds": 193.5062794999999,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "profile-river accounts",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "seq": 13,
+      "elapsed_seconds": 193.50676779200012,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 0,
+          "offset": 0,
+          "items": []
+        }
+      }
+    },
+    {
+      "seq": 14,
+      "elapsed_seconds": 193.5101218750001,
+      "kind": "model_requested",
+      "data": {
+        "turn": 4
+      }
+    },
+    {
+      "seq": 15,
+      "elapsed_seconds": 229.59635350000008,
+      "kind": "model_completed",
+      "data": {
+        "turn": 4,
+        "prompt_tokens": 1922,
+        "output_tokens": 124,
+        "eval_duration_ns": 31241741000,
+        "total_duration_ns": 36080429708,
+        "done_reason": "stop",
+        "tool_call_count": 1
+      }
+    },
+    {
+      "seq": 16,
+      "elapsed_seconds": 229.59689583299996,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "seq": 17,
+      "elapsed_seconds": 229.59736049999992,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 0,
+          "offset": 0,
+          "items": []
+        }
+      }
+    },
+    {
+      "seq": 18,
+      "elapsed_seconds": 229.60091250000005,
+      "kind": "model_requested",
+      "data": {
+        "turn": 5
+      }
+    },
+    {
+      "seq": 19,
+      "elapsed_seconds": 248.10725349999984,
+      "kind": "model_completed",
+      "data": {
+        "turn": 5,
+        "prompt_tokens": 2082,
+        "output_tokens": 56,
+        "eval_duration_ns": 14704781000,
+        "total_duration_ns": 18502015833,
+        "done_reason": "stop",
+        "tool_call_count": 1
+      }
+    },
+    {
+      "seq": 20,
+      "elapsed_seconds": 248.10741429200016,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "deletion river@example.test",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "seq": 21,
+      "elapsed_seconds": 248.107591083,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 0,
+          "offset": 0,
+          "items": []
+        }
+      }
+    },
+    {
+      "seq": 22,
+      "elapsed_seconds": 248.10941016700008,
+      "kind": "model_requested",
+      "data": {
+        "turn": 6
+      }
+    },
+    {
+      "seq": 23,
+      "elapsed_seconds": 263.584960958,
+      "kind": "model_completed",
+      "data": {
+        "turn": 6,
+        "prompt_tokens": 2174,
+        "output_tokens": 53,
+        "eval_duration_ns": 13856456000,
+        "total_duration_ns": 15459827958,
+        "done_reason": "stop",
+        "tool_call_count": 1
+      }
+    },
+    {
+      "seq": 24,
+      "elapsed_seconds": 263.5858687919999,
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_evidence",
+        "arguments": {
+          "query": "person-river",
+          "offset": 0
+        }
+      }
+    },
+    {
+      "seq": 25,
+      "elapsed_seconds": 263.58729604200016,
+      "kind": "tool_returned",
+      "data": {
+        "name": "search_evidence",
+        "result": {
+          "total": 1,
+          "offset": 0,
+          "items": [
+            {
+              "id": "readback",
+              "system": "accounts",
+              "resource": "profile-river",
+              "kind": "READBACK",
+              "source": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/observations/0"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seq": 26,
+      "elapsed_seconds": 263.59907191699995,
+      "kind": "model_requested",
+      "data": {
+        "turn": 7
+      }
+    },
+    {
+      "seq": 27,
+      "elapsed_seconds": 279.748032042,
+      "kind": "model_completed",
+      "data": {
+        "turn": 7,
+        "prompt_tokens": 2365,
+        "output_tokens": 47,
+        "eval_duration_ns": 12065652000,
+        "total_duration_ns": 16141257500,
+        "done_reason": "stop",
+        "tool_call_count": 1
+      }
+    },
+    {
+      "seq": 28,
+      "elapsed_seconds": 279.74820316700016,
+      "kind": "tool_requested",
+      "data": {
+        "name": "read_evidence",
+        "arguments": {
+          "evidence_id": "readback"
+        }
+      }
+    },
+    {
+      "seq": 29,
+      "elapsed_seconds": 279.74842983300005,
+      "kind": "tool_returned",
+      "data": {
+        "name": "read_evidence",
+        "result": {
+          "observation": {
+            "system": "accounts",
+            "resource": "profile-river",
+            "id": "readback",
+            "identifier": {
+              "kind": "email",
+              "value": "river@example.test"
+            },
+            "observed_at": "2026-01-20T12:00:00Z",
+            "captured_at": "2026-01-20T12:00:00Z",
+            "event_at": null,
+            "ingested_at": null,
+            "available_at": null,
+            "kind": "READBACK",
+            "state": "UNKNOWN",
+            "coverage": "EXACT_RESOURCE",
+            "fields": {
+              "source_kind": "resource_readback_note",
+              "note": "Resource profile-river in accounts belongs to person-river. Observed state: ABSENT."
+            },
+            "unlinking_verified": false,
+            "archive_present": null
+          },
+          "source": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/observations/0"
+        }
+      }
+    },
+    {
+      "seq": 30,
+      "elapsed_seconds": 279.7532057919998,
+      "kind": "model_requested",
+      "data": {
+        "turn": 8
+      }
+    },
+    {
+      "seq": 31,
+      "elapsed_seconds": 300.0094959580001,
+      "kind": "error",
+      "data": {
+        "type": "RuntimeFailure"
+      }
+    },
+    {
+      "seq": 32,
+      "elapsed_seconds": 300.01142283299987,
+      "kind": "deterministic_conclusion",
+      "data": {
+        "report": {
+          "conclusion": "INCONCLUSIVE",
+          "authorization": "AUTHORIZED",
+          "subject": "person-river",
+          "artifact_sha256": "a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02",
+          "assessments": [
+            {
+              "system": "accounts",
+              "resource": "profile-river",
+              "status": "UNRESOLVED",
+              "reason": "Insufficient fields or coverage",
+              "evidence": [
+                "readback"
+              ]
+            }
+          ],
+          "recommendations": [],
+          "unresolved": [
+            "accounts/profile-river: Insufficient fields or coverage"
+          ],
+          "validation_errors": [],
+          "provenance": {
+            "readback": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/observations/0",
+            "identities:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/identities/0",
+            "targets:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/targets/0",
+            "rules:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/rules/0"
+          }
+        },
+        "execution_status": "inference_failed"
+      }
+    }
+  ],
+  "usage": {
+    "model_calls": 8,
+    "input_tokens": 12566,
+    "output_tokens": 721
+  },
+  "status": "inference_failed",
+  "duration_seconds": 300.01071550000006,
+  "tool_calls": 7,
+  "accepted": [],
+  "rejected": [],
+  "completion": null,
+  "report": {
+    "conclusion": "INCONCLUSIVE",
+    "authorization": "AUTHORIZED",
+    "subject": "person-river",
+    "artifact_sha256": "a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02",
+    "assessments": [
+      {
+        "system": "accounts",
+        "resource": "profile-river",
+        "status": "UNRESOLVED",
+        "reason": "Insufficient fields or coverage",
+        "evidence": [
+          "readback"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "unresolved": [
+      "accounts/profile-river: Insufficient fields or coverage"
+    ],
+    "validation_errors": [],
+    "provenance": {
+      "readback": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/observations/0",
+      "identities:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/identities/0",
+      "targets:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/targets/0",
+      "rules:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/rules/0"
+    }
+  },
+  "runtime_readiness": {
+    "runtime": {
+      "version": "0.40.13"
+    },
+    "model": {
+      "name": "qwen3.5:latest",
+      "model": "qwen3.5:latest",
+      "modified_at": "2026-03-26T13:48:34.255764991+05:30",
+      "size": 6594474711,
+      "digest": "6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "9.7B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 262144,
+        "embedding_length": 4096,
+        "runner": "ggml"
+      },
+      "capabilities": [
+        "completion",
+        "vision",
+        "tools",
+        "thinking"
+      ]
+    },
+    "capabilities": [
+      "completion",
+      "vision",
+      "tools",
+      "thinking"
+    ]
+  }
+}

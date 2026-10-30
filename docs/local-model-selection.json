@@ -1,0 +1,9 @@
+{
+  "selected": "qwen3.5:latest",
+  "alternative_cached": "gemma3:4b",
+  "alternative_capabilities": [
+    "completion",
+    "vision"
+  ],
+  "reason": "Qwen3.5 advertises tools; cached Gemma3 does not. Both are local assets; no new model weights downloaded. No head-to-head quality claim is made."
+}

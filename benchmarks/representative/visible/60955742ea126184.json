@@ -1,0 +1,246 @@
+{
+  "identities": [
+    {
+      "identifier": {
+        "kind": "email",
+        "value": "70e4db742ac5f9f4@example.test"
+      },
+      "recorded_at": "2026-03-25T08:00:00Z",
+      "subject": "person-25ee2e0075eb6a90",
+      "valid_from": "2026-03-25T08:00:00Z",
+      "valid_to": null
+    },
+    {
+      "identifier": {
+        "kind": "email",
+        "value": "474bbd7e0a51be34@example.test"
+      },
+      "recorded_at": "2025-06-08T08:00:00Z",
+      "subject": "person-25ee2e0075eb6a90",
+      "valid_from": "2025-06-08T08:00:00Z",
+      "valid_to": "2026-03-25T08:00:00Z"
+    },
+    {
+      "identifier": {
+        "kind": "phone",
+        "value": "+1-202-555-0100"
+      },
+      "recorded_at": "2026-03-25T08:00:00Z",
+      "subject": "person-25ee2e0075eb6a90",
+      "valid_from": "2026-03-25T08:00:00Z",
+      "valid_to": null
+    },
+    {
+      "identifier": {
+        "kind": "phone",
+        "value": "+1-202-555-0140"
+      },
+      "recorded_at": "2025-06-08T08:00:00Z",
+      "subject": "person-25ee2e0075eb6a90",
+      "valid_from": "2025-06-08T08:00:00Z",
+      "valid_to": "2026-03-25T08:00:00Z"
+    },
+    {
+      "identifier": {
+        "kind": "user_id",
+        "value": "person-25ee2e0075eb6a90"
+      },
+      "recorded_at": "2025-06-08T08:00:00Z",
+      "subject": "person-25ee2e0075eb6a90",
+      "valid_from": "2025-06-08T08:00:00Z",
+      "valid_to": null
+    },
+    {
+      "identifier": {
+        "kind": "email",
+        "value": "11c78ec0581bf719@example.test"
+      },
+      "recorded_at": "2025-06-08T08:00:00Z",
+      "subject": "person-0b50f55453236d3f",
+      "valid_from": "2025-06-08T08:00:00Z"
+    }
+  ],
+  "observations": [
+    {
+      "captured_at": "2026-04-04T08:00:00Z",
+      "coverage": "EXACT_RESOURCE",
+      "fields": {
+        "event_at": "2026-04-04T05:00:00Z",
+        "ingested_at": "2026-04-04T08:00:00Z"
+      },
+      "id": "obs-ae15d85cc43efcef",
+      "identifier": {
+        "kind": "user_id",
+        "value": "person-25ee2e0075eb6a90"
+      },
+      "kind": "CLAIM",
+      "observed_at": "2026-04-04T08:00:00Z",
+      "resource": "ae15d85cc43efcef",
+      "state": "UNKNOWN",
+      "system": "accounts"
+    },
+    {
+      "captured_at": "2026-04-04T08:00:00Z",
+      "coverage": "EXACT_RESOURCE",
+      "fields": {
+        "event_at": "2026-04-04T05:00:00Z",
+        "ingested_at": "2026-04-04T08:00:00Z"
+      },
+      "id": "obs-016bc67ab23db686",
+      "identifier": {
+        "kind": "user_id",
+        "value": "person-25ee2e0075eb6a90"
+      },
+      "kind": "READBACK",
+      "observed_at": "2026-04-04T08:00:00Z",
+      "resource": "016bc67ab23db686",
+      "state": "ABSENT",
+      "system": "regional_replica"
+    },
+    {
+      "captured_at": "2026-04-04T08:00:00Z",
+      "coverage": "EXACT_RESOURCE",
+      "fields": {
+        "event_at": "2026-04-04T05:00:00Z",
+        "ingested_at": "2026-04-04T08:00:00Z"
+      },
+      "id": "obs-cddd265c43c74a6f",
+      "identifier": {
+        "kind": "user_id",
+        "value": "person-25ee2e0075eb6a90"
+      },
+      "kind": "READBACK",
+      "observed_at": "2026-04-04T08:00:00Z",
+      "resource": "cddd265c43c74a6f",
+      "state": "ABSENT",
+      "system": "search"
+    },
+    {
+      "captured_at": "2026-04-04T08:00:00Z",
+      "coverage": "PARTIAL",
+      "fields": {
+        "event_at": "2026-04-04T05:00:00Z",
+        "ingested_at": "2026-04-04T08:00:00Z",
+        "message": "Deletion operation failed"
+      },
+      "id": "activity-0",
+      "identifier": {
+        "kind": "user_id",
+        "value": "person-25ee2e0075eb6a90"
+      },
+      "kind": "CLAIM",
+      "observed_at": "2026-04-04T05:00:00Z",
+      "resource": "ae15d85cc43efcef",
+      "state": "UNKNOWN",
+      "system": "accounts"
+    },
+    {
+      "captured_at": "2026-04-04T08:00:00Z",
+      "coverage": "PARTIAL",
+      "fields": {
+        "event_at": "2026-04-04T05:00:00Z",
+        "ingested_at": "2026-04-04T08:00:00Z",
+        "message": "Deletion operation failed"
+      },
+      "id": "activity-1",
+      "identifier": {
+        "kind": "user_id",
+        "value": "person-25ee2e0075eb6a90"
+      },
+      "kind": "CLAIM",
+      "observed_at": "2026-04-04T05:00:00Z",
+      "resource": "016bc67ab23db686",
+      "state": "UNKNOWN",
+      "system": "regional_replica"
+    },
+    {
+      "captured_at": "2026-04-04T08:00:00Z",
+      "coverage": "PARTIAL",
+      "fields": {
+        "event_at": "2026-04-04T05:00:00Z",
+        "ingested_at": "2026-04-04T08:00:00Z",
+        "message": "Deletion operation failed"
+      },
+      "id": "activity-2",
+      "identifier": {
+        "kind": "user_id",
+        "value": "person-25ee2e0075eb6a90"
+      },
+      "kind": "CLAIM",
+      "observed_at": "2026-04-04T05:00:00Z",
+      "resource": "cddd265c43c74a6f",
+      "state": "UNKNOWN",
+      "system": "search"
+    },
+    {
+      "captured_at": "2026-04-04T08:00:00Z",
+      "coverage": "PARTIAL",
+      "fields": {
+        "event_at": "2026-04-04T05:00:00Z",
+        "ingested_at": "2026-04-04T08:00:00Z",
+        "message": "Deletion operation failed"
+      },
+      "id": "decoy",
+      "identifier": {
+        "kind": "email",
+        "value": "11c78ec0581bf719@example.test"
+      },
+      "kind": "CLAIM",
+      "observed_at": "2026-04-04T05:00:00Z",
+      "resource": "unrelated-record",
+      "state": "PRESENT",
+      "system": "search"
+    }
+  ],
+  "request": {
+    "audit_at": "2026-04-04T08:00:00Z",
+    "identifier": {
+      "kind": "email",
+      "value": "70e4db742ac5f9f4@example.test"
+    },
+    "requested_at": "2026-04-02T08:00:00Z",
+    "text": "Please delete my account."
+  },
+  "rules": [
+    {
+      "action": "DELETE",
+      "category": "PROFILE",
+      "preserve_subject_reference": false,
+      "required_fields": []
+    },
+    {
+      "action": "DELETE",
+      "category": "REPLICA",
+      "preserve_subject_reference": false,
+      "required_fields": []
+    },
+    {
+      "action": "DELETE",
+      "category": "INDEX",
+      "preserve_subject_reference": false,
+      "required_fields": []
+    }
+  ],
+  "schema_version": 1,
+  "scope_complete": true,
+  "targets": [
+    {
+      "category": "PROFILE",
+      "conditions": {},
+      "resource": "ae15d85cc43efcef",
+      "system": "accounts"
+    },
+    {
+      "category": "REPLICA",
+      "conditions": {},
+      "resource": "016bc67ab23db686",
+      "system": "regional_replica"
+    },
+    {
+      "category": "INDEX",
+      "conditions": {},
+      "resource": "cddd265c43c74a6f",
+      "system": "search"
+    }
+  ]
+}

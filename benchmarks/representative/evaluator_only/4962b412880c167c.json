@@ -1,0 +1,209 @@
+{
+  "evidence_quality": {
+    "activity-0": {
+      "attribution_valid": true,
+      "source_reliable": false
+    },
+    "activity-1": {
+      "attribution_valid": true,
+      "source_reliable": false
+    },
+    "decoy": {
+      "attribution_valid": false,
+      "source_reliable": true
+    },
+    "obs-23e0c011cd80a2c5": {
+      "attribution_valid": true,
+      "source_reliable": true
+    },
+    "obs-9959ae24569b372d": {
+      "attribution_valid": true,
+      "source_reliable": true
+    },
+    "obs-ab91888a1b117b52": {
+      "attribution_valid": true,
+      "source_reliable": true
+    }
+  },
+  "expected": {
+    "authorization": "AUTHORIZED",
+    "conclusion": "NON_COMPLIANT",
+    "obligations": [
+      {
+        "allowed_evidence": [
+          "obs-9959ae24569b372d"
+        ],
+        "resource": "9959ae24569b372d",
+        "status": "VIOLATED",
+        "system": "backups"
+      },
+      {
+        "allowed_evidence": [
+          "obs-ab91888a1b117b52"
+        ],
+        "resource": "ab91888a1b117b52",
+        "status": "SATISFIED",
+        "system": "regional_replica"
+      },
+      {
+        "allowed_evidence": [
+          "obs-23e0c011cd80a2c5"
+        ],
+        "resource": "23e0c011cd80a2c5",
+        "status": "SATISFIED",
+        "system": "search"
+      }
+    ],
+    "world_state": "NON_COMPLIANT"
+  },
+  "input_sha256": "b29283b4289ede866224035011e433921d626bad95a65a66367d8cf6fde5dd95",
+  "world": {
+    "cutoff": "2026-03-18T23:00:00Z",
+    "family": "backup_unblocked",
+    "focus": "9959ae24569b372d",
+    "identities": [
+      {
+        "identifier": {
+          "kind": "email",
+          "value": "7f1fec2a110fd7e2@example.test"
+        },
+        "recorded_at": "2026-03-08T23:00:00Z",
+        "subject": "person-66cee8352c2ccb96",
+        "valid_from": "2026-03-08T23:00:00Z",
+        "valid_to": null
+      },
+      {
+        "identifier": {
+          "kind": "email",
+          "value": "786f9838ca109c47@example.test"
+        },
+        "recorded_at": "2025-05-22T23:00:00Z",
+        "subject": "person-66cee8352c2ccb96",
+        "valid_from": "2025-05-22T23:00:00Z",
+        "valid_to": "2026-03-08T23:00:00Z"
+      },
+      {
+        "identifier": {
+          "kind": "phone",
+          "value": "+1-202-555-0144"
+        },
+        "recorded_at": "2026-03-08T23:00:00Z",
+        "subject": "person-66cee8352c2ccb96",
+        "valid_from": "2026-03-08T23:00:00Z",
+        "valid_to": null
+      },
+      {
+        "identifier": {
+          "kind": "phone",
+          "value": "+1-202-555-0107"
+        },
+        "recorded_at": "2025-05-22T23:00:00Z",
+        "subject": "person-66cee8352c2ccb96",
+        "valid_from": "2025-05-22T23:00:00Z",
+        "valid_to": "2026-03-08T23:00:00Z"
+      },
+      {
+        "identifier": {
+          "kind": "user_id",
+          "value": "person-66cee8352c2ccb96"
+        },
+        "recorded_at": "2025-05-22T23:00:00Z",
+        "subject": "person-66cee8352c2ccb96",
+        "valid_from": "2025-05-22T23:00:00Z",
+        "valid_to": null
+      },
+      {
+        "identifier": {
+          "kind": "email",
+          "value": "0fb30c129d18b1c6@example.test"
+        },
+        "recorded_at": "2025-05-22T23:00:00Z",
+        "subject": "person-4182aebc2b20f2ba",
+        "valid_from": "2025-05-22T23:00:00Z"
+      }
+    ],
+    "index": 11,
+    "intent": "AUTHORIZED",
+    "operations": [
+      {
+        "actual_success": true,
+        "event_at": "2026-03-18T20:00:00Z",
+        "operation": "DELETE",
+        "reported_success": true,
+        "resource": "ab91888a1b117b52"
+      },
+      {
+        "actual_success": true,
+        "event_at": "2026-03-18T20:00:00Z",
+        "operation": "DELETE",
+        "reported_success": true,
+        "resource": "23e0c011cd80a2c5"
+      }
+    ],
+    "other": "person-4182aebc2b20f2ba",
+    "request": {
+      "audit_at": "2026-03-18T23:00:00Z",
+      "identifier": {
+        "kind": "email",
+        "value": "7f1fec2a110fd7e2@example.test"
+      },
+      "requested_at": "2026-03-16T23:00:00Z",
+      "text": "Please delete my account."
+    },
+    "resources": [
+      {
+        "action": "BLOCK",
+        "actual": "ACTIVE",
+        "actual_fields": {},
+        "actual_unlinked": false,
+        "archive_present": true,
+        "category": "ARCHIVE",
+        "conditions": {},
+        "owner": "person-66cee8352c2ccb96",
+        "owners": [
+          "person-66cee8352c2ccb96"
+        ],
+        "preserve": false,
+        "required_fields": [],
+        "resource": "9959ae24569b372d",
+        "system": "backups"
+      },
+      {
+        "action": "DELETE",
+        "actual": "ABSENT",
+        "actual_fields": {},
+        "actual_unlinked": false,
+        "archive_present": false,
+        "category": "REPLICA",
+        "conditions": {},
+        "owner": "person-66cee8352c2ccb96",
+        "owners": [
+          "person-66cee8352c2ccb96"
+        ],
+        "preserve": false,
+        "required_fields": [],
+        "resource": "ab91888a1b117b52",
+        "system": "regional_replica"
+      },
+      {
+        "action": "DELETE",
+        "actual": "ABSENT",
+        "actual_fields": {},
+        "actual_unlinked": false,
+        "archive_present": false,
+        "category": "INDEX",
+        "conditions": {},
+        "owner": "person-66cee8352c2ccb96",
+        "owners": [
+          "person-66cee8352c2ccb96"
+        ],
+        "preserve": false,
+        "required_fields": [],
+        "resource": "23e0c011cd80a2c5",
+        "system": "search"
+      }
+    ],
+    "seed": 42,
+    "subject": "person-66cee8352c2ccb96"
+  }
+}

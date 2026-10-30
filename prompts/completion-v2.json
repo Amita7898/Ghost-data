@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "summary": {
+      "maxLength": 500,
+      "title": "Summary",
+      "type": "string"
+    },
+    "uncertainties": {
+      "items": {
+        "maxLength": 150,
+        "type": "string"
+      },
+      "maxItems": 5,
+      "title": "Uncertainties",
+      "type": "array"
+    },
+    "stop_reason": {
+      "enum": [
+        "resolved",
+        "insufficient_evidence"
+      ],
+      "title": "Stop Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "summary",
+    "uncertainties",
+    "stop_reason"
+  ],
+  "title": "Completion",
+  "type": "object"
+}

@@ -1,0 +1,225 @@
+{
+  "evidence_quality": {
+    "activity-0": {
+      "attribution_valid": true,
+      "source_reliable": false
+    },
+    "activity-1": {
+      "attribution_valid": true,
+      "source_reliable": false
+    },
+    "activity-2": {
+      "attribution_valid": true,
+      "source_reliable": false
+    },
+    "decoy": {
+      "attribution_valid": false,
+      "source_reliable": true
+    },
+    "obs-2a28041e39d66eef": {
+      "attribution_valid": true,
+      "source_reliable": true
+    },
+    "obs-2a28041e39d66eef-second": {
+      "attribution_valid": true,
+      "source_reliable": true
+    },
+    "obs-9fe5c7b10070a57b": {
+      "attribution_valid": true,
+      "source_reliable": true
+    },
+    "obs-bf44c749c7175e85": {
+      "attribution_valid": true,
+      "source_reliable": true
+    }
+  },
+  "expected": {
+    "authorization": "AUTHORIZED",
+    "conclusion": "INCONCLUSIVE",
+    "obligations": [
+      {
+        "allowed_evidence": [
+          "obs-2a28041e39d66eef-second",
+          "obs-2a28041e39d66eef"
+        ],
+        "resource": "2a28041e39d66eef",
+        "status": "UNRESOLVED",
+        "system": "accounts"
+      },
+      {
+        "allowed_evidence": [
+          "obs-9fe5c7b10070a57b"
+        ],
+        "resource": "9fe5c7b10070a57b",
+        "status": "SATISFIED",
+        "system": "regional_replica"
+      },
+      {
+        "allowed_evidence": [
+          "obs-bf44c749c7175e85"
+        ],
+        "resource": "bf44c749c7175e85",
+        "status": "SATISFIED",
+        "system": "search"
+      }
+    ],
+    "world_state": "COMPLIANT"
+  },
+  "input_sha256": "804d16f294c4ff55eb12e6e2e300592d8d51751630fa7ba9fd44a5326c1f8f12",
+  "world": {
+    "cutoff": "2026-04-17T14:00:00Z",
+    "family": "conflicting_readbacks",
+    "focus": "2a28041e39d66eef",
+    "identities": [
+      {
+        "identifier": {
+          "kind": "email",
+          "value": "4c2c1345485d8da4@example.test"
+        },
+        "recorded_at": "2026-04-07T14:00:00Z",
+        "subject": "person-8101e5124df45e6c",
+        "valid_from": "2026-04-07T14:00:00Z",
+        "valid_to": null
+      },
+      {
+        "identifier": {
+          "kind": "email",
+          "value": "71e54a5bd14efb7b@example.test"
+        },
+        "recorded_at": "2025-06-21T14:00:00Z",
+        "subject": "person-8101e5124df45e6c",
+        "valid_from": "2025-06-21T14:00:00Z",
+        "valid_to": "2026-04-07T14:00:00Z"
+      },
+      {
+        "identifier": {
+          "kind": "phone",
+          "value": "+1-202-555-0181"
+        },
+        "recorded_at": "2026-04-07T14:00:00Z",
+        "subject": "person-8101e5124df45e6c",
+        "valid_from": "2026-04-07T14:00:00Z",
+        "valid_to": null
+      },
+      {
+        "identifier": {
+          "kind": "phone",
+          "value": "+1-202-555-0128"
+        },
+        "recorded_at": "2025-06-21T14:00:00Z",
+        "subject": "person-8101e5124df45e6c",
+        "valid_from": "2025-06-21T14:00:00Z",
+        "valid_to": "2026-04-07T14:00:00Z"
+      },
+      {
+        "identifier": {
+          "kind": "user_id",
+          "value": "person-8101e5124df45e6c"
+        },
+        "recorded_at": "2025-06-21T14:00:00Z",
+        "subject": "person-8101e5124df45e6c",
+        "valid_from": "2025-06-21T14:00:00Z",
+        "valid_to": null
+      },
+      {
+        "identifier": {
+          "kind": "email",
+          "value": "c4610a582f93bf33@example.test"
+        },
+        "recorded_at": "2025-06-21T14:00:00Z",
+        "subject": "person-212cc3bd59d4bfd4",
+        "valid_from": "2025-06-21T14:00:00Z"
+      }
+    ],
+    "index": 6,
+    "intent": "AUTHORIZED",
+    "operations": [
+      {
+        "actual_success": true,
+        "event_at": "2026-04-17T11:00:00Z",
+        "operation": "DELETE",
+        "reported_success": true,
+        "resource": "2a28041e39d66eef"
+      },
+      {
+        "actual_success": true,
+        "event_at": "2026-04-17T11:00:00Z",
+        "operation": "DELETE",
+        "reported_success": true,
+        "resource": "9fe5c7b10070a57b"
+      },
+      {
+        "actual_success": true,
+        "event_at": "2026-04-17T11:00:00Z",
+        "operation": "DELETE",
+        "reported_success": true,
+        "resource": "bf44c749c7175e85"
+      }
+    ],
+    "other": "person-212cc3bd59d4bfd4",
+    "request": {
+      "audit_at": "2026-04-17T14:00:00Z",
+      "identifier": {
+        "kind": "email",
+        "value": "4c2c1345485d8da4@example.test"
+      },
+      "requested_at": "2026-04-15T14:00:00Z",
+      "text": "Please delete my account."
+    },
+    "resources": [
+      {
+        "action": "DELETE",
+        "actual": "ABSENT",
+        "actual_fields": {},
+        "actual_unlinked": false,
+        "archive_present": false,
+        "category": "PROFILE",
+        "conditions": {},
+        "owner": "person-8101e5124df45e6c",
+        "owners": [
+          "person-8101e5124df45e6c"
+        ],
+        "preserve": false,
+        "required_fields": [],
+        "resource": "2a28041e39d66eef",
+        "system": "accounts"
+      },
+      {
+        "action": "DELETE",
+        "actual": "ABSENT",
+        "actual_fields": {},
+        "actual_unlinked": false,
+        "archive_present": false,
+        "category": "REPLICA",
+        "conditions": {},
+        "owner": "person-8101e5124df45e6c",
+        "owners": [
+          "person-8101e5124df45e6c"
+        ],
+        "preserve": false,
+        "required_fields": [],
+        "resource": "9fe5c7b10070a57b",
+        "system": "regional_replica"
+      },
+      {
+        "action": "DELETE",
+        "actual": "ABSENT",
+        "actual_fields": {},
+        "actual_unlinked": false,
+        "archive_present": false,
+        "category": "INDEX",
+        "conditions": {},
+        "owner": "person-8101e5124df45e6c",
+        "owners": [
+          "person-8101e5124df45e6c"
+        ],
+        "preserve": false,
+        "required_fields": [],
+        "resource": "bf44c749c7175e85",
+        "system": "search"
+      }
+    ],
+    "seed": 42,
+    "subject": "person-8101e5124df45e6c"
+  }
+}

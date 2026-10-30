@@ -1,0 +1,38 @@
+{
+  "mode": "extraction_v2",
+  "duration": 11.005589667000095,
+  "report": {
+    "conclusion": "INCONCLUSIVE",
+    "authorization": "AUTHORIZED",
+    "subject": "person-river",
+    "artifact_sha256": "a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02",
+    "assessments": [
+      {
+        "system": "accounts",
+        "resource": "profile-river",
+        "status": "UNRESOLVED",
+        "reason": "Insufficient fields or coverage",
+        "evidence": [
+          "readback"
+        ]
+      }
+    ],
+    "recommendations": [],
+    "unresolved": [
+      "accounts/profile-river: Insufficient fields or coverage"
+    ],
+    "validation_errors": [],
+    "provenance": {
+      "readback": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/observations/0",
+      "identities:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/identities/0",
+      "targets:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/targets/0",
+      "rules:0": "sha256:a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02#/rules/0"
+    }
+  },
+  "decisions": [],
+  "usage": {
+    "model_calls": 1,
+    "input_tokens": 312,
+    "output_tokens": 12
+  }
+}

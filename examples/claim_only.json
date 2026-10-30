@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "request": {
+    "text": "Please delete my account.",
+    "identifier": {
+      "kind": "email",
+      "value": "river@example.test"
+    },
+    "requested_at": "2026-01-19T12:00:00Z",
+    "audit_at": "2026-01-20T12:00:00Z"
+  },
+  "identities": [
+    {
+      "subject": "person-river",
+      "identifier": {
+        "kind": "email",
+        "value": "river@example.test"
+      },
+      "valid_from": "2025-01-01T00:00:00Z",
+      "recorded_at": "2025-01-01T00:00:00Z"
+    }
+  ],
+  "rules": [
+    {
+      "category": "PROFILE",
+      "action": "DELETE"
+    }
+  ],
+  "targets": [
+    {
+      "system": "accounts",
+      "resource": "profile-river",
+      "category": "PROFILE"
+    }
+  ],
+  "observations": [
+    {
+      "id": "readback",
+      "system": "accounts",
+      "resource": "profile-river",
+      "identifier": {
+        "kind": "email",
+        "value": "river@example.test"
+      },
+      "observed_at": "2026-01-20T12:00:00Z",
+      "captured_at": "2026-01-20T12:00:00Z",
+      "kind": "CLAIM",
+      "state": "ABSENT",
+      "coverage": "EXACT_RESOURCE"
+    }
+  ],
+  "scope_complete": true
+}

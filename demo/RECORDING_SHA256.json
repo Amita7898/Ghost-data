@@ -1,0 +1,10 @@
+{
+  "demo/receipt-absent-v4-live.json": "85b1ff9d781d0610434e87dcb544eb06d4d3f949e52c8c30be0ee11c8fd0384a",
+  "demo/remaining-replica-v2-live.json": "4bd4a2247a9aeea8d7ed7b282bd684a311942020b6ba1802d61fe0aa0fb8b67f",
+  "demo/remaining-replica-live.json": "6c69471b24d1134f469ddd599f1eb2f1bb258b16068ebf5633538be4129b5a93",
+  "demo/remaining-replica-v3-live.json": "829ce6ff2b9f16ac1b1129b55ce49285129a98d80e00e7d135f04854bf4f8b8d",
+  "benchmarks/local-agent-final-results/receipt_injection-live.json": "0965330e9b8e738e184cebe3cd5c0d0c1e166c757ab684f32a4c001bd54a1c3c",
+  "benchmarks/local-agent-final-results/receipt_present-live.json": "1f2c40a251db3a58309c4055851d11af070b9a3f203fb15e8d4c5386722ecbbc",
+  "benchmarks/local-agent-final-results/receipt_absent-live.json": "26e3f5d3b83bd625a9c8de6af9ae31854b46ac8cf7c875b2f25a14d0ba434176",
+  "benchmarks/local-agent-final-results/receipt_conflict-live.json": "b163ff266da419cf18f7b4e501e464a0e835c3043dd590dae7031b1b33692ac0"
+}

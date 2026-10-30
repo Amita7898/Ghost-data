@@ -1,0 +1,7 @@
+{
+  "expected": "INCONCLUSIVE",
+  "input_sha256": "e12fb07a3ae94fb64f73c5617ee00689b51e35fb314117397ec3a7544fa2497b",
+  "actual_resource_state": "ABSENT",
+  "world_state": "COMPLIANT",
+  "measurement_fault": "contradictory receipt sentence"
+}

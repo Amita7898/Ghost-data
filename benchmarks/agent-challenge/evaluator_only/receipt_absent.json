@@ -1,0 +1,7 @@
+{
+  "expected": "VERIFIED_WITHIN_SCOPE",
+  "input_sha256": "a6bf30c2e9441595ebd3c7c9029558f74058e78bb528032e806e1e546b355e02",
+  "actual_resource_state": "ABSENT",
+  "world_state": "COMPLIANT",
+  "measurement_fault": null
+}

@@ -1,0 +1,7 @@
+{
+  "expected": "NON_COMPLIANT",
+  "input_sha256": "eeaceb261c663d06263d60a3068fd319d448f2a9bb8d060751d3709a326df399",
+  "actual_resource_state": "PRESENT",
+  "world_state": "NON_COMPLIANT",
+  "measurement_fault": null
+}
