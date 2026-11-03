@@ -339,3 +339,83 @@ def test_proof_failure_is_not_masked_by_a_concurrent_cancel(tmp_path):
         assert repo.run(run["id"])["status"] == "verification_failed"
     finally:
         app.state.service.shutdown()
+
+
+@pytest.mark.parametrize("proof_failure", [False, True])
+@pytest.mark.parametrize("interruption", ["cancel", "shutdown"])
+def test_worker_interruption_preserves_proof_failure_and_normal_cancellation(
+    tmp_path, monkeypatch, proof_failure, interruption
+):
+    """Interrupt after the agent returns, before the worker persists final status."""
+    app = create_app(ROOT, tmp_path / "data", runtime_factory=Runtime, offline=False)
+    original_run = Investigator.run
+    if proof_failure:
+        monkeypatch.setattr(
+            "ghost_data.agent.investigator.check",
+            lambda *args: ["Forced independent proof rejection"],
+        )
+
+    def interrupt_after_agent(self, *args, **kwargs):
+        trace = original_run(self, *args, **kwargs)
+        with app.state.repo.connect() as db:
+            run_id = db.execute(
+                "SELECT id FROM web_runs WHERE status='running'"
+            ).fetchone()[0]
+        if interruption == "cancel":
+            app.state.repo.request_cancel(run_id)
+        else:
+            app.state.service.stopping.set()
+        return trace
+
+    monkeypatch.setattr(Investigator, "run", interrupt_after_agent)
+    with TestClient(app, base_url="http://127.0.0.1") as client:
+        inv = client.post(
+            "/api/v1/investigations", json={"title": "Worker finalization race"}
+        ).json()
+        artifact = client.put(
+            "/api/v1/investigations/" + inv["id"] + "/evidence",
+            content=(ROOT / "examples/remaining_replica.json").read_bytes(),
+            headers={"Content-Type": "application/json"},
+        ).json()
+        created = client.post(
+            "/api/v1/investigations/" + inv["id"] + "/runs",
+            json={"artifact_id": artifact["id"]},
+            headers={"Idempotency-Key": "worker-finalization-race"},
+        ).json()
+        for _ in range(200):
+            run = client.get("/api/v1/runs/" + created["id"]).json()
+            if run["status"] in {
+                "cancelled",
+                "verification_failed",
+                "failed",
+                "completed",
+            }:
+                break
+            time.sleep(0.01)
+        assert run["status"] == (
+            "verification_failed" if proof_failure else "cancelled"
+        )
+        events = client.get("/api/v1/runs/" + run["id"] + "/events").json()
+        if interruption == "cancel":
+            assert any(e["kind"] == "cancellation_requested" for e in events)
+        with app.state.repo.connect() as db:
+            trace = json.loads(
+                db.execute(
+                    "SELECT trace FROM web_runs WHERE id=?", (run["id"],)
+                ).fetchone()[0]
+            )
+        assert trace["events"] and trace["usage"]["model_calls"] == 1
+        if proof_failure:
+            assert run["report"] is None and run["conclusion"] is None
+            assert "verification failed" in run["error"].lower()
+            assert trace["status"] == "verification_failed" and trace["report"] is None
+            assert trace["validation_errors"] == ["Forced independent proof rejection"]
+            assert any(e["kind"] == "verification_failed" for e in events)
+            assert not any(e["kind"] == "deterministic_conclusion" for e in events)
+        else:
+            assert not trace["validation_errors"]
+            assert run["report"]["conclusion"] == "NON_COMPLIANT"
+            assert not any(e["kind"] == "verification_failed" for e in events)
+            assert run["error"] is None
+        stream = client.get("/api/v1/runs/" + run["id"] + "/stream")
+        assert "event: end" in stream.text

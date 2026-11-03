@@ -170,7 +170,9 @@ class Service:
                 on_event=persist_agent_event,
             )
             status = trace["status"]
-            if repo.run(id)["status"] == "cancelling" or self.stopping.is_set():
+            if status != "verification_failed" and (
+                repo.run(id)["status"] == "cancelling" or self.stopping.is_set()
+            ):
                 status = "cancelled"
             final = (
                 "completed"
