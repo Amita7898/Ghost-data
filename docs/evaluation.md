@@ -128,7 +128,7 @@ isolation, not an OS sandbox. Tests cover attempts to use missing, conflicting,
 partial, late, misattributed and invalid evidence, and forged success reports.
 
 
-## Final pre-release verification
+## Initial pre-release verification
 
 The subsequent candidate check used **Python 3.12.16, 3.13.7 and 3.14.0**. Each
 source suite passed **423 tests with one opt-in skip**. The final Python 3.12 wheel
@@ -193,6 +193,21 @@ Fresh audits show zero known pinned-Python and frontend-production advisories, p
 the same three accepted moderate development-only entries. The TestClient warning
 is unchanged. GitHub Actions has not run on this unpublished candidate; no remote-CI
 success or release approval is inferred from local checks.
+
+## Candidate verification after the worker status fix
+
+The full suite passed 427 tests on each of Python 3.12.16, 3.13.7 and 3.14.0,
+with one default opt-in skip. The installed Python 3.12 wheel passed the same
+suite outside the checkout. The four new worker tests cover cancellation and
+shutdown after both valid and failed verification. Failed proof retains its
+errors and trace, and the report remains withheld.
+
+A clean local clone passed pinned installation, the frontend build, ten frontend
+tests, lint, Ruff and byte-identical Python 3.12 API contract generation. Five
+offline browser workflows and the live streaming, reload and cancellation
+workflow passed. The structured suites retained their original fixture hashes,
+100% conclusion accuracy and zero unsupported verified conclusions. The earlier
+exploratory model evaluations remain recorded above.
 
 ## Artifact retention
 

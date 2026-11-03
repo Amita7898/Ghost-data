@@ -93,8 +93,9 @@ CLI/model clients; serialize those manually.
 
 Execution state is separate from the four audit conclusions. Independent proof
 failure yields `verification_failed`, preserves the full journal and validation
-errors, and withholds the report/conclusion. It is terminal in persistence, SSE and
-UI. Runtime errors have separate model-service messages. A valid kernel assessment
+errors, and withholds the report/conclusion. A cancellation or shutdown arriving
+after failed verification cannot replace that terminal status. This state propagates
+through persistence, SSE and the UI. Runtime errors have separate model-service messages. A valid kernel assessment
 may be visible after a cancelled/budget-limited investigation with a clear execution
 warning; failed proof can never publish one. No database migration is required for
 the added execution state because SQLite stores it as text.

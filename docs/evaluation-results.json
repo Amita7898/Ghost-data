@@ -830,7 +830,7 @@
       }
     ]
   },
-  "measurement_scope": "Prior remediation measurements are retained in the original sections; current pre-release checks are in prerelease_verification.",
+  "measurement_scope": "Prior remediation and initial pre-release measurements are retained here. See evaluation.md for the latest candidate checks.",
   "prior_remediation_validation": {
     "python_baseline": {
       "passed": 207,

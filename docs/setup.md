@@ -1,14 +1,14 @@
 # Setup and diagnostics
 
 Run the README quickstart from a fresh checkout. Dependency installation requires
-network access; subsequent offline replay does not require an AI service. Source repository: https://github.com/amita7898/ghost-data.
+network access; subsequent offline replay needs no Ollama installation, model weights
+or API key.
 
 The pinned Python environment is in requirements-web-tested.txt; the exact npm
 resolution is frontend/package-lock.json (`npm ci`, not a floating fresh install).
-The original release ran on Python 3.12/3.14 in CI and Python 3.14/macOS arm64
-locally. Pre-release verification additionally ran the full suite on isolated Python 3.12.16,
-Python 3.13.7 and Python 3.14.0 with Node 25. CI still targets Python 3.12/3.14 and Node 22. Native Windows execution remains untested. Use a current
-Node 22 release (22.12+) or newer supported LTS release.
+The candidate was checked locally on Python 3.12.16, 3.13.7 and 3.14.0 with Node 25.
+CI targets Python 3.12/3.14 and Node 22. Use Node 22.12+ and npm. Native Windows
+execution has not been tested.
 
 After installation/build, `python scripts/check_setup.py --offline` checks package
 availability, build tools, frontend assets and all three curated recording hashes. It never
