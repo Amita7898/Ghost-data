@@ -224,7 +224,7 @@ nav a svg {
   font-family: monospace;
   letter-spacing: 1px;
   font-size: 8px;
-  color: #6e7b90;
+  color: #96a3b8;
 }
 .app-main {
   margin-left: 214px;
@@ -419,7 +419,7 @@ nav a svg {
 }
 .demo-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 15px;
 }
 .demo-card {
@@ -1311,7 +1311,7 @@ td strong {
 }
 .artifact-card code {
   display: block;
-  color: #687f9e;
+  color: #94a7c1;
   font-size: 9px;
   margin-top: 6px;
 }
@@ -1341,7 +1341,7 @@ td strong {
   color: #c6b9e7;
 }
 .graph-subject small {
-  color: #8c80a4;
+  color: #b2a4ca;
   font-size: 9px;
   margin-top: 5px;
 }

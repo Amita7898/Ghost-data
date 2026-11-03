@@ -1,8 +1,8 @@
 # Local investigation agent — Milestone 3
 
 The agent uses real local Ollama /api/chat tool calls. It has six typed read-only
-tools and a bounded controller. It is a Python backend component; the React and
-FastAPI presentation milestone has not started.
+tools and a bounded controller. The React/FastAPI application now exposes this same controller; see
+web-architecture.md for the current UI, durable SSE events and single-run admission.
 
 ## Installation and execution
 
@@ -28,8 +28,7 @@ This machine reused 6,594,474,711 bytes of cached model assets (9.7B Q4_K_M).
 The installed Ollama 0.40.13 archive was 229,773,910 bytes; app disk use was
 711,564 KiB. The app was signature-verified. No weights/runtime binaries are
 included in this repository. The cached model license is Apache-2.0; review the
-upstream license and notices before any redistribution. The application license
-remains an owner decision.
+upstream license and notices before any redistribution. The application is MIT licensed; dependencies/model/runtime retain their own terms.
 
 Chosen model: qwen3.5:latest, actual digest recorded in traces. The mutable tag is
 not a reproducibility guarantee; doctor exposes the actual digest for comparison.
@@ -45,7 +44,7 @@ for the current 16 GiB machine without additional memory-pressure measurements.
 
 ```mermaid
 flowchart TD
-    CLI[CLI / future FastAPI] --> Controller[Bounded investigator]
+    CLI[CLI / FastAPI] --> Controller[Bounded investigator]
     Controller <--> Local[Local Ollama model]
     Controller --> Tools[Typed tool registry]
     Tools --> Admission[Shared evidence admission]
@@ -104,7 +103,7 @@ Cancellation is cooperative between calls; the in-flight call remains bounded
 by its timeout. Keyboard interruption records cancellation in the controller.
 A process kill can still prevent the final trace write. This version writes the
 complete trace at run end; on_event callbacks can stream events to a future UI.
-Durable per-event crash recovery is not yet implemented.
+The CLI still writes its final trace at run end. The web adapter now persists per-event progress and marks interrupted runs after restart; it does not resume inference.
 
 Events distinguish model requests/responses, typed tool calls, source results,
 proposal acceptance/rejection, model summaries, errors, and deterministic results.
@@ -138,11 +137,10 @@ retained for compatibility; use local_agent for actual local comparisons.
 
 Use one live investigation at a time on this 16 GiB machine. Ollama is configured
 for one parallel inference slot. Concurrent clients can wait in its queue and
-exhaust their request or investigation deadlines. There is no application job
-queue or process-wide session lock yet; callers must serialize live runs. Some
+exhaust their request or investigation deadlines. The web adapter now gates one active live run and one backend per data directory.
+Independent CLI clients are outside that gate; callers must serialize those runs. Some
 exploratory measurements were made while another diagnostic was running and
-must not be treated as isolated latency benchmarks. The future API needs explicit
-single-run admission/backpressure before supporting simultaneous UI actions.
+must not be treated as isolated latency benchmarks. See web-architecture.md for implemented API admission and restart behavior.
 
 The current controller allows schema-bounded completion retries within the final
 two turns. It does not retry failed HTTP model calls automatically, since a timed

@@ -1,137 +1,158 @@
 # Ghost Data
 
-A local AI investigation console for data deletion audits. Follow what the agent
-actually does, inspect its sources, and distinguish its proposals from independently
-validated conclusions.
+**A local, full-stack AI investigation console for evidence-backed data deletion audits.**
 
-![Ghost Data investigation workspace](docs/screenshots/workspace-desktop.png)
+A workflow can say “deleted” while a replica, export or restore path still holds the
+person's data. Ghost Data investigates the evidence, applies policy, and separates
+what is proven from what remains unknown.
 
-Ghost Data combines a bounded local LLM agent, read-only evidence tools, a deterministic
-policy kernel, independent proof checks, and a React investigation workspace. A
-successful deletion message is a claim; it is not automatically proof of absence.
+![Genuine recorded investigation walkthrough](docs/demo/ghost-data-replay.gif)
 
-## Try a real recording — no model or API key required
+*An accelerated walkthrough of actual recorded local-model events and synthetic
+evidence. REPLAY is not live inference. No API key or downloaded model is needed.*
 
-Prerequisites: Python 3.11+ and Node 22+ (Milestone 4 tested with Python 3.14 and Node 25; prior core tests also ran on Python 3.12).
+## Explore it locally
+
+Requirements: **Python 3.11+**, **Node 22+**, npm, and an internet connection for the
+initial dependency install. The release quickstart is tested in a fresh environment;
+platform details and exact results are in [release readiness](docs/release-readiness.md).
 
 ```sh
+git clone https://github.com/amita7898/ghost-data.git
+cd ghost-data
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-web-tested.txt
 python -m pip install --no-build-isolation -e '.[web,dev]'
 npm ci --prefix frontend
 npm run build --prefix frontend
+python scripts/check_setup.py --offline
 python scripts/start.py --offline
 ```
 
-Open **http://127.0.0.1:8000** and choose **Prose receipt audit**. It replays a genuine
-local-model investigation, including retrieved evidence, a quoted hypothesis,
-validation feedback, and its final assessment. Playback is clearly labeled REPLAY.
-No model calls occur in offline mode. Windows activation: `.venv\Scripts\activate`.
+Open **http://127.0.0.1:8000**. Choose **Prose receipt audit**, inspect the accepted
+hypothesis and its source, then try **Conflicting readbacks** to see rejected
+proposals and an inconclusive result. Playback can be paused, accelerated or shown
+in full. Windows activation: `.venv\Scripts\activate`.
 
-## Run a live local investigation
+**No Ollama calls occur in offline mode.** The app uses genuine bundled recordings,
+not fabricated activity. [Demo guide and capture procedure](docs/demo.md) ·
+[Troubleshooting](docs/setup.md)
 
-Use the existing local Qwen3.5/Ollama setup described in [local-agent.md](docs/local-agent.md).
-The project never automatically downloads multi-GB models or falls back to cloud inference.
+## What is implemented
+
+- **Three-panel investigation workspace:** scope and evidence, observable agent
+  activity, independently validated results. No private chain-of-thought display.
+- **Genuine local agent:** dynamically chooses six typed read-only tools, inspects
+  sources, proposes hypotheses and receives acceptance or rejection feedback.
+- **Deterministic safeguards:** request authorization, historical identity links,
+  evidence availability, policy treatment, scope and independent proof checks.
+- **Evidence inspection:** original JSON, SHA-256 provenance and exact row locators;
+  eligible observations remain distinct from excluded or unresolved evidence.
+- **Persistent execution:** SQLite history, SSE reconnection, idempotent starts,
+  serialized live runs, cancellation, interrupted/failed states and report export.
+- **Responsive React UI:** dashboard, investigation creation, evidence explorer and
+  run history. JSON uploads are validated and limited to 5 MB.
+
+## How the investigation works
+
+```mermaid
+flowchart LR
+  UI[React + TypeScript + Tailwind] --> API[FastAPI /api/v1]
+  API --> DB[(SQLite + registered evidence)]
+  API --> Agent[Bounded investigation controller]
+  Agent <--> LLM[Local Ollama / Qwen]
+  Agent --> Tools[Six read-only tools]
+  Tools --> Gate[Evidence and source-contract checks]
+  Gate --> Kernel[Deterministic policy kernel]
+  Kernel --> Proof[Independent proof validator]
+  Agent --> Events[Persisted events / SSE]
+  Proof --> Events
+  Events --> UI
+```
+
+The model selects tools and arguments from the evidence it sees. It can investigate
+missing facts, revise a rejected hypothesis or stop within its budgets. A model
+summary never sets the audit conclusion. Proposed facts need registered citations
+and a supported source contract before the kernel and independent validator admit
+them. Claims, partial snapshots and missing data cannot prove deletion.
+
+The interpretation bridge currently supports a narrow, reviewed readback-note
+grammar—not arbitrary document understanding. `VERIFIED_WITHIN_SCOPE` means the
+required state is supported within the declared inventory, not universal deletion.
+[Architecture and trust boundaries](docs/web-architecture.md) · [Agent details](docs/local-agent.md)
+
+## Optional live inference
+
+Install Ollama separately and explicitly choose/download a suitable local model.
+The application never downloads weights or falls back to a cloud provider.
 
 ```sh
-# Separate terminal, if Ollama is not already running:
+# Separate terminal, once Ollama and qwen3.5:latest are installed:
 sh scripts/serve-local.sh
-# Restart the web application without --offline:
-python scripts/start.py
-```
-
-In the UI, create an investigation, select a synthetic example or upload a supported
-JSON bundle, configure its scope/cutoff, then choose **Start live**. Runs are serialized.
-You can reload or leave the page; progress is persisted. Cancellation waits for the
-bounded in-flight model call. Completed, failed, cancelled, and interrupted states
-are distinct from the audit conclusion.
-
-The existing CLI still works:
-
-```sh
+# In the activated project environment:
 ghost-data doctor
-ghost-data examples/remaining_replica.json
-ghost-data investigate examples/prose_receipt.json --agent local --trace /tmp/audit.json
-ghost-data replay demo/receipt-absent-v4-live.json
+python scripts/start.py                  # omit --offline
 ```
 
-## Application
+Create an investigation from a synthetic example or JSON bundle and select **Start
+live**. Reloading preserves progress. Cancellation waits for the bounded in-flight
+call. The measured setup is an Apple M3 with 16 GiB unified memory, Qwen3.5 9.7B
+Q4_K_M (about 6.6 GB cached assets), Ollama 0.40.13 and a 16,384-token context.
+A measured web run took **162.4 seconds**, five model calls/five tool calls and
+8,573 reported tokens. Other hardware and mutable model tags can differ.
+[Model setup and measured limitations](docs/setup.md#live-local-inference)
 
-- **Overview:** actual investigations, active runs, evidence counts and curated recordings.
-- **New investigation:** JSON upload/progress, source validation, human scope and exact cutoff settings.
-- **Investigation workspace:** context, genuine model-selected tool activity, hypotheses, validation and final results.
-- **Evidence explorer:** safe source previews, exact SHA/row references, source links and separate model hypotheses.
-- **History:** saved runs, report downloads, and side-by-side run summaries without claiming accuracy comparisons.
+## Measured results, including failures
 
-Supported uploads are structured JSON bundles only, up to 5 MB. PDFs, screenshots,
-raw SQL/log imports and general document interpretation are not implemented.
+| Evaluation | Result | What it establishes |
+|---|---|---|
+| Structured synthetic suites: 32 / 128 / 512 cases | 100% conclusion accuracy; zero unsupported verified after hardening | Controlled JSON/temporal/policy regressions, not real-world accuracy |
+| Four readback-note diagnostics: deterministic / extraction / agent | 25% / 75% / 75% | Small, narrow-source comparison; no general agent superiority |
+| Median runtime on those four cases | 0.0003 s / 25.9 s / 148.7 s | Agent investigation is substantially slower |
 
-## Architecture and API
+The agent proved one absence that extraction missed, but abstained on an injection
+case where extraction found the supported violation. A conventional parser could
+also implement this receipt grammar. Templates overlap across synthetic suite sizes;
+there is no external production validation or certification.
+[Methodology and raw results](docs/performance.md)
 
-React + TypeScript + Vite + Tailwind; FastAPI + Pydantic; SQLite; local Ollama.
-One modular backend, one inference worker, persisted SSE events; no Redis,
-PostgreSQL, distributed queues or multi-agent framework.
-
-See [web architecture and trust boundaries](docs/web-architecture.md). Versioned API:
-`/api/v1`; interactive documentation: `/docs`; machine-readable contract: `/openapi.json`.
-TypeScript DTOs in `frontend/src/api.generated.ts` are generated from that contract.
-
-```sh
-python scripts/export_openapi.py
-npm run api:types --prefix frontend
-```
-
-For frontend development, start the API and run `npm run dev --prefix frontend`
-in another terminal. Vite binds to localhost:5173 and proxies `/api` to localhost:8000.
-`python scripts/start.py --data-dir /your/private/directory` selects local storage.
-
-## Tests
+## Tests and development
 
 ```sh
-pytest -q
+pytest -q                               # local-model test skipped by default
 npm test --prefix frontend
-# With the offline app running on port 8000:
+npm run build --prefix frontend
+# With the offline server running; installed Chrome locally:
 npm run test:e2e --prefix frontend
-# Opt-in actual inference tests, with normal live mode enabled:
-GHOST_DATA_REAL_SMOKE=1 pytest -q tests/test_agent.py::test_real_model_emits_tool_call
-GHOST_DATA_LIVE_WEB=1 npm run test:e2e --prefix frontend -- e2e/live.spec.ts
 ```
 
-Local Playwright uses installed Chrome; CI installs Chromium. Keep live tests serialized.
-[Milestone 4 results](docs/milestone-4-results.md) records executed checks, genuine live
-run measurements and limitations. CI configuration is included; no remote CI run is
-claimed. [Milestone 3 results](docs/milestone-3-results.md) documents the small local-model
-comparison, including failures and complementary extraction/agent errors.
+CI runs Python, frontend, production-build and offline-browser checks without
+Ollama. [View the actual GitHub Actions runs](https://github.com/amita7898/ghost-data/actions/workflows/tests.yml). Live
+inference tests are opt-in. [Commands, API types and contribution guide](CONTRIBUTING.md)
 
-## Boundaries and limitations
+<details>
+<summary>More application screenshots</summary>
 
-This is a **local-only application**, not a public SaaS deployment. No multi-user
-authentication is included. Do not bind it publicly. Model tools cannot execute
-deletions, authorize requests, change policy, read arbitrary files or override proof
-validation. Metadata/source authenticity and declared inventory scope remain explicit
-trust assumptions. VERIFIED_WITHIN_SCOPE does not mean universal deletion.
+![Investigation workspace](docs/screenshots/workspace-desktop.png)
+![Evidence explorer](docs/screenshots/evidence-explorer.png)
+![Mobile workspace](docs/screenshots/workspace-mobile.png)
 
-Inference is slow on the tested M3 (the M3 agent benchmark median was ~149 seconds).
-The receipt interpreter is deliberately narrow. Model summaries can be wrong and
-are visually separated from validated facts. A larger, held-out evaluation remains
-necessary before claiming broad agent superiority or prompt-injection immunity.
+</details>
 
-Private evidence/history live in `.localdata/`, excluded from Git. Model weights,
-private transcripts and original competition assets are not included. Public demos
-use independently authored fictional data. No repository has been pushed or published.
-Licensing remains an owner decision before release; model/runtime notices are linked
-in the local-agent documentation. Preserve and review private evidence before exports.
+## Boundaries and next steps
 
-## Project map
+Localhost only; no multi-user authentication or public deployment support. Tools
+cannot delete data or authorize destructive actions. JSON-only ingestion; no PDF,
+OCR or live database connector. Source authenticity and inventory completeness
+remain explicit assumptions. Model output can be wrong; limited prompt-injection
+tests do not establish immunity. Review [SECURITY.md](SECURITY.md) before use.
 
-```text
-frontend/src/pages/       React pages and responsive workspace
-frontend/e2e/             Real-browser workflows
-src/ghost_data/web/       HTTP adapters, services, SQLite repository
-src/ghost_data/agent/     Local inference, tools, validation, traces
-src/ghost_data/           Preserved auditing kernel and CLI
-src/ghost_data_bench/     Synthetic worlds and evaluator-only scoring
-examples/ · demo/         Synthetic inputs and genuine recordings
-docs/                    Architecture, OpenAPI, screenshots, measurements
-```
+Future work: held-out evidence contracts and latency profiling first, then reviewed
+read-only connectors and investigation UX. Broader ingestion and hosted/multi-user
+operation need separate safety work. [Roadmap and GitHub metadata](docs/release-plan.md)
+
+Licensed under [MIT](LICENSE). Copyright (c) 2026 Amita Shree S.
+Competition assets, private chats, model weights and local investigation databases
+are excluded. Dependencies retain their upstream licenses. See
+[provenance and licensing review](docs/provenance-and-licensing.md).

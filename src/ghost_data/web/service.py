@@ -16,6 +16,12 @@ from .repository import elapsed, now
 
 MAX_BYTES = 5_000_000
 DEMO_FILES = {
+    "conflict": (
+        "Conflicting readbacks",
+        "A genuine investigation with rejected hypotheses and an inconclusive outcome.",
+        "conflicting-readbacks-live.json",
+        "conflicting_readbacks.json",
+    ),
     "receipt": (
         "Prose receipt audit",
         "A real five-turn investigation that validated a quoted readback.",

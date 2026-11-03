@@ -1,7 +1,8 @@
 # Synthetic world generation and benchmarking (Milestone 2)
 
-This benchmark is a foundation for the planned real LLM agent and React/FastAPI
-application. No model or frontend is implemented in this milestone.
+This document describes the structured synthetic benchmark. The local LLM and
+React/FastAPI app are now implemented. See performance.md for current results and
+local-agent.md for the separate real-model comparison runner.
 
 ## Reproduce
 
@@ -97,18 +98,14 @@ as prompt examples. Never publish competition truth, private evidence, or chats.
   nearest-rank p95, total time across repetitions, and individual measurements.
   Latency is machine dependent and is not expected to reproduce byte-for-byte.
 
-## Availability contract and uncovered weakness
+## Current availability contract and historical failure
 
-For these synthetic suites an observation must have been observed, captured,
-and ingested by audit_at. Ingestion is represented in `fields.ingested_at` until
-it becomes a first-class domain field. The Milestone 1 kernel checks observation
-and capture timestamps but not ingestion. The late-ingestion scenario therefore
-produces an unsupported verified conclusion. This is an explicit new contract
-probe, not a claim that the original competition required ingestion semantics.
-
-German refusal is safely ambiguous in the current limited-language grammar, but
-incorrect against the intended NOT_APPLICABLE label. No kernel correction was
-made to hide these failures.
+Observations must satisfy the explicit observation, capture and ingestion-availability
+rules at the audit cutoff. Milestone 2.1 made ingestion first-class, independently
+enforced admission in the proof checker, and conservatively corrected German
+refusal handling. The earlier M2 unsupported verified results remain recorded in
+milestone-2-results.md; after hardening all unchanged structured seeds passed.
+See evidence-admission.md and milestone-21-comparison.json for precise semantics.
 
 ## Scope and limitations
 
@@ -126,8 +123,10 @@ model. No PDF/OCR parsing, fuzzing or real connector throughput is benchmarked.
 
 `RuntimeAdapter.predict(visible_bytes) -> report` supports registered adapters.
 Mode names are `deterministic`, `extraction`, `agent`, and `agent_challenger`.
-Only deterministic is implemented; others fail explicitly rather than simulate
-agent results. Future adapters must emit the same assessment/provenance contract,
+The general runner implements deterministic mode; its other slots still fail
+explicitly. The separate `ghost_data_bench.local_agent` runner implements genuine
+single extraction and dynamic local investigation. Future adapters must emit the
+same assessment/provenance contract,
 real usage data, and readable traces. Run identical visible suites with disjoint
 labels, repeat stochastic agents, then compare safety, grounding, coverage,
 latency and cost. Add held-out templates and perturbations before claiming LLM

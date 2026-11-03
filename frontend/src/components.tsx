@@ -77,7 +77,7 @@ export function Modal({
   closeRef.current = onClose;
   useEffect(() => {
     const previous = document.activeElement as HTMLElement;
-    ref.current?.focus();
+    (ref.current?.querySelector<HTMLElement>("button") || ref.current)?.focus();
     function key(e: KeyboardEvent) {
       if (e.key === "Escape") closeRef.current();
       if (e.key === "Tab") {

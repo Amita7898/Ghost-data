@@ -1,7 +1,7 @@
-import { cleanup,fireEvent,render,screen } from "@testing-library/react";
-import { afterEach,expect,it } from "vitest";
-import { mergeEvents,parseSource,type Event } from "./api";
-import { Badge,EventCard,ResultPanel } from "./components";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, expect, it, vi } from "vitest";
+import { mergeEvents, parseSource, type Event } from "./api";
+import { Badge, EventCard, ResultPanel, Modal } from "./components";
 afterEach(cleanup);
 it("deduplicates reconnect events without losing their ordering", () => {
   const e = (seq: number) => ({
@@ -80,4 +80,30 @@ it("does not invent a conclusion before a report exists", () => {
   render(<ResultPanel run={null} onEvidence={() => {}} />);
   expect(screen.getByText("Evidence before certainty.")).toBeInTheDocument();
   expect(screen.queryByText("verified within scope")).not.toBeInTheDocument();
+});
+
+it("source dialog focuses a control, traps reverse tab and restores previous focus", () => {
+  const previous = document.createElement("button");
+  document.body.append(previous);
+  previous.focus();
+  const close = vi.fn();
+  const view = render(
+    <Modal title="Evidence" onClose={close}>
+      <button>Last source control</button>
+    </Modal>,
+  );
+  const first = screen.getByRole("button", {
+      name: "Close evidence inspector",
+    }),
+    last = screen.getByRole("button", { name: "Last source control" });
+  expect(first).toHaveFocus();
+  fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
+  expect(last).toHaveFocus();
+  fireEvent.keyDown(document, { key: "Tab" });
+  expect(first).toHaveFocus();
+  fireEvent.keyDown(document, { key: "Escape" });
+  expect(close).toHaveBeenCalledOnce();
+  view.unmount();
+  expect(previous).toHaveFocus();
+  previous.remove();
 });

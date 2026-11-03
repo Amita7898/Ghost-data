@@ -24,3 +24,13 @@ frontend/playwright-report/
 *.tsbuildinfo
 
 .ruff_cache/
+
+# Never publish original challenge inputs or private development records.
+/dataset/
+/log.txt
+/chat_transcript*
+/agent-trace*
+/code.zip
+/output.csv
+/release-local/
+/.demo-capture/

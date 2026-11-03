@@ -95,12 +95,14 @@ export default function App() {
             {runtime
               ? runtime.available
                 ? "Local model ready"
-                : "Replay ready · model offline"
+                : runtime.message === "Backend unavailable"
+                  ? "Backend unavailable"
+                  : "Replay ready · model offline"
               : "Checking local model"}
             <RefreshCw size={12} />
           </button>
         </header>
-        <main id="main">
+        <main id="main" tabIndex={-1}>
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/new" element={<NewInvestigation />} />

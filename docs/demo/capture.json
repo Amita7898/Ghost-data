@@ -1,0 +1,43 @@
+{
+  "mode": "genuine_offline_replay",
+  "created_at": "2026-11-03T12:55:15.045Z",
+  "frames": [
+    {
+      "file": "01-overview.png",
+      "description": "Open the local console; choose a genuine recorded investigation.",
+      "sha256": "aee150c3243a3fe307fb5be0c47065980319f8fd3e370ff78142aa2f629fb98b"
+    },
+    {
+      "file": "02-tools.png",
+      "description": "Actual recorded model-selected tool requests; replay is explicitly labeled.",
+      "sha256": "e49c1155cfedf292db007fccebc3a4aecc8b583b3698885f020608ee26d6f817"
+    },
+    {
+      "file": "03-accepted.png",
+      "description": "Supported STATE hypothesis accepted by deterministic source checks.",
+      "sha256": "24995b5ec3243d66b2322a671e43550d6b79ff62d9816bfaea5b436c153ee6fa"
+    },
+    {
+      "file": "04-source.png",
+      "description": "Exact original synthetic source and SHA/row provenance.",
+      "sha256": "2513821574cfdce7dfa1a202dbae4eebe7e3d592106a7c392e88d3f9da39012b"
+    },
+    {
+      "file": "05-evidence.png",
+      "description": "Evidence inventory and explicitly distinguished source/agent relationships.",
+      "sha256": "a46e4ac3bf29790daea3fd05a8bb7fa27a128c4397f431f9c047a604f891fa15"
+    },
+    {
+      "file": "06-rejected.png",
+      "description": "Genuine rejected proposals; the final audit remains INCONCLUSIVE.",
+      "sha256": "e579752f90e44410dcb458a0b4874798791e6c4d10a2775b26f10371ce449916"
+    }
+  ],
+  "note": "Accelerated navigation through actual saved events; no invented or rewritten event content.",
+  "gif_sha256": "a790321f417199ad5559d84d9be37c30aea04b30b57eac60d96bc89a652c8d1f",
+  "source_recordings": {
+    "demo/receipt-absent-v4-live.json": "85b1ff9d781d0610434e87dcb544eb06d4d3f949e52c8c30be0ee11c8fd0384a",
+    "demo/conflicting-readbacks-live.json": "b163ff266da419cf18f7b4e501e464a0e835c3043dd590dae7031b1b33692ac0"
+  },
+  "encoding": "GIF color quantization only; UI content not rewritten"
+}
