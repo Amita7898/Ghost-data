@@ -399,3 +399,28 @@ def test_reports_escape_untrusted_markup():
 
     text = markdown_text("<script>alert(1)</script> [click](javascript:alert(1))")
     assert "<script>" not in text and "\\[" in text
+
+
+@pytest.mark.parametrize(
+    "reason_phrase", ["Unprocessable Entity", "Unprocessable Content"]
+)
+def test_422_contract_and_validation_do_not_depend_on_python_reason_phrase(
+    tmp_path, monkeypatch, reason_phrase
+):
+    import http.client
+
+    # Python 3.12/3.14 supply different defaults to FastAPI's OpenAPI generator.
+    monkeypatch.setitem(http.client.responses, 422, reason_phrase)
+    app = create_app(ROOT, tmp_path / "data", offline=True)
+    with TestClient(app, base_url="http://127.0.0.1") as client:
+        assert (
+            json.dumps(app.openapi(), indent=2) + "\n"
+            == (ROOT / "docs/openapi.json").read_text()
+        )
+        invalid = client.post("/api/v1/investigations", json={"title": ""})
+        assert invalid.status_code == 422
+        assert invalid.json()["code"] == "VALIDATION_ERROR"
+        assert any(d["location"] == "body.title" for d in invalid.json()["details"])
+        assert client.get("/api/v1/investigations").json() == []
+        valid = client.post("/api/v1/investigations", json={"title": "Valid audit"})
+        assert valid.status_code == 201

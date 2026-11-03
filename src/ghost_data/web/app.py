@@ -80,7 +80,7 @@ def create_app(project_root=None, data_dir=None, runtime_factory=None, offline=N
             400: {"model": Error},
             404: {"model": Error},
             409: {"model": Error},
-            422: {"model": Error},
+            422: {"model": Error, "description": "Unprocessable Content"},
         },
     )
     app.state.repo = repo
