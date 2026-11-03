@@ -15,3 +15,12 @@ private/
 uploads/
 traces/
 .DS_Store
+
+.localdata/
+frontend/node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+*.tsbuildinfo
+
+.ruff_cache/

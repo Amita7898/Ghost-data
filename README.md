@@ -1,150 +1,137 @@
 # Ghost Data
 
-An evidence-grounded data deletion investigation platform, under incremental development.
+A local AI investigation console for data deletion audits. Follow what the agent
+actually does, inspect its sources, and distinguish its proposals from independently
+validated conclusions.
 
-**Implemented: deterministic auditing core, synthetic benchmarks, and a local
-LLM investigation agent with recorded offline replay.** The React/FastAPI web
-application is the next milestone. The agent uses real Ollama inference and
-native tool calls; final audit decisions remain deterministic. No external
-resource is deleted or modified.
+![Ghost Data investigation workspace](docs/screenshots/workspace-desktop.png)
 
-See [local agent setup, architecture and trust boundaries](docs/local-agent.md).
+Ghost Data combines a bounded local LLM agent, read-only evidence tools, a deterministic
+policy kernel, independent proof checks, and a React investigation workspace. A
+successful deletion message is a claim; it is not automatically proof of absence.
 
+## Try a real recording — no model or API key required
 
-## Run locally
-
-Python 3.11 or newer:
+Prerequisites: Python 3.11+ and Node 22+ (Milestone 4 tested with Python 3.14 and Node 25; prior core tests also ran on Python 3.12).
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -e '.[dev]'
-pytest -q
-ghost-data examples/remaining_replica.json --db investigations.sqlite
+python -m pip install -r requirements-web-tested.txt
+python -m pip install --no-build-isolation -e '.[web,dev]'
+npm ci --prefix frontend
+npm run build --prefix frontend
+python scripts/start.py --offline
 ```
 
-On Windows, activate with `.venv\Scripts\activate`.
-For the exact dependencies used in the recorded Milestone 1 run, install
-`python -m pip install -r requirements-tested.txt` before the editable install.
-The SQLite database stores evidence bytes, reports, and ordered run events; treat
-it as private. No server or network listener is started.
+Open **http://127.0.0.1:8000** and choose **Prose receipt audit**. It replays a genuine
+local-model investigation, including retrieved evidence, a quoted hypothesis,
+validation feedback, and its final assessment. Playback is clearly labeled REPLAY.
+No model calls occur in offline mode. Windows activation: `.venv\Scripts\activate`.
 
-## Try the evidence distinction
+## Run a live local investigation
 
-| Input | Result |
-|---|---|
-| `examples/remaining_replica.json` | NON_COMPLIANT: a subject-linked copy remains |
-| `examples/scoped_absence.json` | VERIFIED_WITHIN_SCOPE: exact-resource readback |
-| `examples/claim_only.json` | INCONCLUSIVE: an operation claim is not state proof |
-| `examples/partial_snapshot.json` | INCONCLUSIVE: partial coverage cannot prove absence |
-
-These examples were independently authored using fictional identifiers. They are
-small core demonstrations, not the synthetic world generator or a benchmark.
-
-## Architecture
-
-```mermaid
-flowchart LR
-    JSON[Bounded JSON input] --> Provenance[Hash and source locators]
-    Provenance --> Identity[Authorization and identity]
-    Identity --> Policy[Policy assessments]
-    Policy --> Verifier[Independent proof verifier]
-    Verifier --> Report[Conclusion and recommendations]
-    Report --> SQLite[Optional SQLite history]
-```
-
-The policy engine and proof verifier have separate assessment implementations.
-They share typed contracts, identity matching, and authorization utilities; this
-is defense in depth, not a mathematically independent formal verification system.
-The pure `audit(bundle, digest)` interface will serve the future API and agent.
-Only ingestion/CLI code accesses files; the kernel has no filesystem or network tools.
-
-## Input contract
-
-See `examples/` and `src/ghost_data/models.py`. Unknown fields, duplicate IDs,
-naive timestamps, invalid intervals and duplicate JSON keys are rejected. The
-input is limited to 5 MB. Each observation has its own typed subject identifier,
-system/resource namespace, observed/captured timestamps, and claim/readback type.
-Reports cite SHA-256 + JSON-pointer locations for observations, identities,
-policies, and scope targets. Raw input bytes can be retained in SQLite.
-
-Policies are explicit per-category treatments: DELETE, RETAIN, REDACT, ANONYMIZE,
-DISABLE, BLOCK. A missing/false policy condition requires a fallback policy or
-review; it never defaults to permission to delete. Redaction requires every
-specified field to be observed. Anonymization additionally requires explicit
-unlinking verification. Backup blocking requires archive presence. Dependencies
-must be resolved; cycles or unresolved prerequisites withhold recommendations.
-
-## Trust boundaries and limitations
-
-- `scope_complete` is a caller-declared bounded inventory, not proof that every
-  real system has been discovered. VERIFIED_WITHIN_SCOPE never means universal
-  deletion. Scope and source authenticity remain responsibilities of ingestion
-  and the investigator; structured fields are not cryptographic attestations.
-- A supplied READBACK is an observation assertion from a trusted local adapter.
-  The core does not authenticate the originating database or defeat forged input.
-- State proof currently requires `observed_at == audit_at`, with capture no later
-  than cutoff. Earlier observations remain unresolved; no implicit freshness
-  window or assumption of unchanged state is used.
-- Authorization supports a conservative subset of wording, with explicit French
-  and Spanish refusal regressions. Ambiguous wording requires review. Audit
-  permission and permission to execute destructive actions are not granted by
-  this classifier; the program only recommends actions.
-- Identity matching uses typed exact identifiers, validity intervals and record
-  availability. Reassigned historical aliases remain ambiguous. No fuzzy name
-  matching or guessed ownership is used.
-- Only structured JSON bundles are supported. PDF, OCR, raw SQL/CSV connectors,
-  model extraction, live agent tools, API, UI, and replay are future milestones.
-- SQLite has no authentication or encryption layer here. Run locally on trusted
-  synthetic inputs. It has no public upload surface. Events are application
-  history, not tamper-proof logs.
-- Frozen models prevent attribute assignment but nested mappings are not deeply
-  immutable. Do not mutate models during a run. Persisted source hashes detect
-  byte changes; production adapters will need stronger source handling.
-
-## Roadmap
-
-1. Core engine (this version).
-2. Synthetic world generator and isolated ground-truth evaluation.
-3. Real bounded LLM tool-calling agent, usage accounting, recorded trace replay.
-4. FastAPI + React/TypeScript/Vite/Tailwind investigation workspace using real data.
-5. Polished offline demonstration, documentation, CI, publication review.
-
-No competition data, private transcripts, or original submission artifacts are
-included. Licensing has not yet been selected; do not publish until the owner
-approves licensing and the source/history review.
-
-## Synthetic benchmarking
-
-See [benchmark documentation](docs/benchmark.md) and
-[Milestone 2 results](docs/milestone-2-results.md). The included representative
-suite contains independent fictional data and evaluator-only truth in separate
-directories; runtime adapters receive visible bytes only.
+Use the existing local Qwen3.5/Ollama setup described in [local-agent.md](docs/local-agent.md).
+The project never automatically downloads multi-GB models or falls back to cloud inference.
 
 ```sh
-python -m ghost_data_bench.generate /tmp/ghost-suite --seed 42 --size small
-python -m ghost_data_bench.run /tmp/ghost-suite --output /tmp/ghost-results --repeats 3
+# Separate terminal, if Ollama is not already running:
+sh scripts/serve-local.sh
+# Restart the web application without --offline:
+python scripts/start.py
 ```
 
-Use fresh output paths. These are synthetic diagnostic scores, not production
-accuracy. The benchmark exposes known kernel limitations; no LLM improvement is
-claimed. See the report before interpreting verification coverage.
+In the UI, create an investigation, select a synthetic example or upload a supported
+JSON bundle, configure its scope/cutoff, then choose **Start live**. Runs are serialized.
+You can reload or leave the page; progress is persisted. Cancellation waits for the
+bounded in-flight model call. Completed, failed, cancelled, and interrupted states
+are distinct from the audit conclusion.
 
-Milestone 2.1 hardening: see [evidence admission](docs/evidence-admission.md) and [comparison results](docs/milestone-21-comparison.json). Original benchmark reports remain preserved; corrected runs are under `benchmarks/hardening-*`. All 136 tests pass locally.
-
-## Real local investigation and offline replay
-
-With the official Ollama runtime and the selected model already installed:
+The existing CLI still works:
 
 ```sh
-sh scripts/serve-local.sh  # run in another terminal
 ghost-data doctor
-ghost-data investigate examples/remaining_replica.json --agent local --trace /tmp/live-audit.json --turns 6
+ghost-data examples/remaining_replica.json
+ghost-data investigate examples/prose_receipt.json --agent local --trace /tmp/audit.json
 ghost-data replay demo/receipt-absent-v4-live.json
 ```
 
-Replay reads an actual synthetic investigation recording and makes no model
-calls. Failed/budget-limited prototype traces are retained with explicit execution
-statuses. These recordings do not establish general model reliability. All live
-recordings use independently authored fictional evidence. No model weights are
-included. Do not upload private evidence traces to GitHub.
+## Application
+
+- **Overview:** actual investigations, active runs, evidence counts and curated recordings.
+- **New investigation:** JSON upload/progress, source validation, human scope and exact cutoff settings.
+- **Investigation workspace:** context, genuine model-selected tool activity, hypotheses, validation and final results.
+- **Evidence explorer:** safe source previews, exact SHA/row references, source links and separate model hypotheses.
+- **History:** saved runs, report downloads, and side-by-side run summaries without claiming accuracy comparisons.
+
+Supported uploads are structured JSON bundles only, up to 5 MB. PDFs, screenshots,
+raw SQL/log imports and general document interpretation are not implemented.
+
+## Architecture and API
+
+React + TypeScript + Vite + Tailwind; FastAPI + Pydantic; SQLite; local Ollama.
+One modular backend, one inference worker, persisted SSE events; no Redis,
+PostgreSQL, distributed queues or multi-agent framework.
+
+See [web architecture and trust boundaries](docs/web-architecture.md). Versioned API:
+`/api/v1`; interactive documentation: `/docs`; machine-readable contract: `/openapi.json`.
+TypeScript DTOs in `frontend/src/api.generated.ts` are generated from that contract.
+
+```sh
+python scripts/export_openapi.py
+npm run api:types --prefix frontend
+```
+
+For frontend development, start the API and run `npm run dev --prefix frontend`
+in another terminal. Vite binds to localhost:5173 and proxies `/api` to localhost:8000.
+`python scripts/start.py --data-dir /your/private/directory` selects local storage.
+
+## Tests
+
+```sh
+pytest -q
+npm test --prefix frontend
+# With the offline app running on port 8000:
+npm run test:e2e --prefix frontend
+# Opt-in actual inference tests, with normal live mode enabled:
+GHOST_DATA_REAL_SMOKE=1 pytest -q tests/test_agent.py::test_real_model_emits_tool_call
+GHOST_DATA_LIVE_WEB=1 npm run test:e2e --prefix frontend -- e2e/live.spec.ts
+```
+
+Local Playwright uses installed Chrome; CI installs Chromium. Keep live tests serialized.
+[Milestone 4 results](docs/milestone-4-results.md) records executed checks, genuine live
+run measurements and limitations. CI configuration is included; no remote CI run is
+claimed. [Milestone 3 results](docs/milestone-3-results.md) documents the small local-model
+comparison, including failures and complementary extraction/agent errors.
+
+## Boundaries and limitations
+
+This is a **local-only application**, not a public SaaS deployment. No multi-user
+authentication is included. Do not bind it publicly. Model tools cannot execute
+deletions, authorize requests, change policy, read arbitrary files or override proof
+validation. Metadata/source authenticity and declared inventory scope remain explicit
+trust assumptions. VERIFIED_WITHIN_SCOPE does not mean universal deletion.
+
+Inference is slow on the tested M3 (the M3 agent benchmark median was ~149 seconds).
+The receipt interpreter is deliberately narrow. Model summaries can be wrong and
+are visually separated from validated facts. A larger, held-out evaluation remains
+necessary before claiming broad agent superiority or prompt-injection immunity.
+
+Private evidence/history live in `.localdata/`, excluded from Git. Model weights,
+private transcripts and original competition assets are not included. Public demos
+use independently authored fictional data. No repository has been pushed or published.
+Licensing remains an owner decision before release; model/runtime notices are linked
+in the local-agent documentation. Preserve and review private evidence before exports.
+
+## Project map
+
+```text
+frontend/src/pages/       React pages and responsive workspace
+frontend/e2e/             Real-browser workflows
+src/ghost_data/web/       HTTP adapters, services, SQLite repository
+src/ghost_data/agent/     Local inference, tools, validation, traces
+src/ghost_data/           Preserved auditing kernel and CLI
+src/ghost_data_bench/     Synthetic worlds and evaluator-only scoring
+examples/ · demo/         Synthetic inputs and genuine recordings
+docs/                    Architecture, OpenAPI, screenshots, measurements
+```

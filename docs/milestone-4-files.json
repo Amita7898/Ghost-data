@@ -1,0 +1,247 @@
+{
+  "milestone": 4,
+  "baseline_commit": "98c2555",
+  "files": [
+    {
+      "path": ".github/workflows/tests.yml",
+      "change": "modified",
+      "sha256": "8c746f0a23b7c6a7e2e527b8b90f97abffe3637517065087788fa3a70da7a006"
+    },
+    {
+      "path": ".gitignore",
+      "change": "modified",
+      "sha256": "405da22c3a7741fbe453036a59e53f5407507fd5bee3ae11b6af2c23f108184d"
+    },
+    {
+      "path": "README.md",
+      "change": "modified",
+      "sha256": "a08e7b4549dd755532964ba298297b5271418a367fad43a91c35515011d37540"
+    },
+    {
+      "path": "docs/milestone-4-preservation.json",
+      "change": "created",
+      "sha256": "65887ba61aa3a1ade2be44c9c89f8f9dffca90480374eb9ad4ec48c44e53e315"
+    },
+    {
+      "path": "docs/milestone-4-results.md",
+      "change": "created",
+      "sha256": "ba5ee55890ce39f26c173b7969d34fb442a12ba10cceee844f1f041c73f54b41"
+    },
+    {
+      "path": "docs/openapi.json",
+      "change": "created",
+      "sha256": "497499386b10a4230eb267f953d4639c09ce007991031fa77d97fe364fc87f2c"
+    },
+    {
+      "path": "docs/screenshots/dashboard-desktop.png",
+      "change": "created",
+      "sha256": "a45548258a08f3d4bd54a221248a0c0846bb2c4af6000f8b1a562367dd476619"
+    },
+    {
+      "path": "docs/screenshots/evidence-explorer.png",
+      "change": "created",
+      "sha256": "3c91f9550a1ad4215a32f96188232214e22a96d8838250e9d1b658966522775d"
+    },
+    {
+      "path": "docs/screenshots/live-completed.png",
+      "change": "created",
+      "sha256": "65ad8c5bbaa97e03cb929a6e0b1332dc928d36c3fed1f621cc49f940365cfa5e"
+    },
+    {
+      "path": "docs/screenshots/live-investigation.png",
+      "change": "created",
+      "sha256": "8bb0e8147490e4b469f70b7d61c894cf64f941e315df95d5a48b50eb75cca9cc"
+    },
+    {
+      "path": "docs/screenshots/new-investigation.png",
+      "change": "created",
+      "sha256": "d76e320764b0fedba109394d35901ba3dfedc17f2d849a51e1a35f3a376415b4"
+    },
+    {
+      "path": "docs/screenshots/workspace-desktop.png",
+      "change": "created",
+      "sha256": "53457f5480efbb8e001c54ebf085182b7f01e708ed0f59f45d25ee0adce90dad"
+    },
+    {
+      "path": "docs/screenshots/workspace-mobile.png",
+      "change": "created",
+      "sha256": "3c0dd63e2b2073f88cf8f6e414277a7a97bdb0da2fb7dd594e08840924c69f16"
+    },
+    {
+      "path": "docs/web-architecture.md",
+      "change": "created",
+      "sha256": "53384d6f27ba5988dace4f31e496f5b5807c7aa613527e195f913f793ebefc02"
+    },
+    {
+      "path": "docs/web-live-validation.json",
+      "change": "created",
+      "sha256": "cdb61a0b78e41a06ac796ea9ce596101fc4ebad65fe61deb7f65fe162e03c281"
+    },
+    {
+      "path": "frontend/e2e/app.spec.ts",
+      "change": "created",
+      "sha256": "5d43fada325302e58c8e5b8055f4eaaceb5311a3921476bfc99e749819ca9245"
+    },
+    {
+      "path": "frontend/e2e/live.spec.ts",
+      "change": "created",
+      "sha256": "772c8300a40432801ccb5371fb9b1d80ab479ca9392cdf1e1660eb0b78a267a5"
+    },
+    {
+      "path": "frontend/index.html",
+      "change": "created",
+      "sha256": "c3e79b44267906665676be1b935d682cadcab6255fa60733fbce6fb2001996f4"
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "change": "created",
+      "sha256": "25b85844ff8258c03268985d20d6a2469516037236efb694826ecdbfc40dce98"
+    },
+    {
+      "path": "frontend/package.json",
+      "change": "created",
+      "sha256": "6c3faa8b33d7dace7d9d01d02b32e0ce633cfab9412391e94d4d694603c897f8"
+    },
+    {
+      "path": "frontend/playwright.config.ts",
+      "change": "created",
+      "sha256": "1febc7b25c616ca2db72712906d6f57d53435abe26c85f3527a5c58e08560e7d"
+    },
+    {
+      "path": "frontend/src/App.tsx",
+      "change": "created",
+      "sha256": "2dcee4c448e6d1cbac093a7c88365e3f945595b167339bc350740e80894222f7"
+    },
+    {
+      "path": "frontend/src/DemoCards.tsx",
+      "change": "created",
+      "sha256": "441e372e1339fde0ca413a76bf723e67835ae1f8ffadc449578b7e0120044de2"
+    },
+    {
+      "path": "frontend/src/api.generated.ts",
+      "change": "created",
+      "sha256": "9b3f775a8da659126b5978b7ea8c32754576f8dd5c77f9304cf1b9be75c2e7dd"
+    },
+    {
+      "path": "frontend/src/api.ts",
+      "change": "created",
+      "sha256": "a937bf87c7da74dbb3709aaba8883427554793465ff0d9a3b8f557cd2da4071f"
+    },
+    {
+      "path": "frontend/src/components.test.tsx",
+      "change": "created",
+      "sha256": "f68b912e2777640170f591e3c79036793fdbca8b7f4b422584953a5388697b25"
+    },
+    {
+      "path": "frontend/src/components.tsx",
+      "change": "created",
+      "sha256": "936a2bdf591b9f51969da066cffa66c8c9d7fced89bf01b0d35bd68f52b173f0"
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "change": "created",
+      "sha256": "b1ee4348ec2a15489cd985e94b32f6acf1f2360d2cddc9908123134b1938d318"
+    },
+    {
+      "path": "frontend/src/pages/Dashboard.tsx",
+      "change": "created",
+      "sha256": "7f0c37ba71de2bbf3425f7e9045286ffe0ee14d72b118a416c764a05a218b0e7"
+    },
+    {
+      "path": "frontend/src/pages/EvidenceExplorer.tsx",
+      "change": "created",
+      "sha256": "8cd572e4e72cbd64e677fdf6845179184100e5d8d818503f01df667ee21ce7b6"
+    },
+    {
+      "path": "frontend/src/pages/HistoryPage.tsx",
+      "change": "created",
+      "sha256": "705ce9b232b803501e7347ac12b51de4b5e82f5be0fd5846a2a2f6c2ba78a035"
+    },
+    {
+      "path": "frontend/src/pages/NewInvestigation.tsx",
+      "change": "created",
+      "sha256": "d56a28363a2c3b268abd75e97d2f017f62222697cd3035cb74502864d3cda437"
+    },
+    {
+      "path": "frontend/src/pages/Workspace.tsx",
+      "change": "created",
+      "sha256": "1f04b743176f090f75efa6d584bfc9b45702d6f052f923d9030ca1345758e3d9"
+    },
+    {
+      "path": "frontend/src/styles.css",
+      "change": "created",
+      "sha256": "41217bcbfa457c420be6ce43686885924f719684a39fdf47a04e37a3b8675cf2"
+    },
+    {
+      "path": "frontend/src/test-setup.ts",
+      "change": "created",
+      "sha256": "9b328c4843431fa76d8de00008fc159e95f99a840211085ff3b8f25e53d14409"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "change": "created",
+      "sha256": "4678148802059b01e75d9cf07dfc3f44f404e8bdbd8320ebc4a9f9238e448776"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "change": "created",
+      "sha256": "199aa224fbdafe772660fba9a26ee26ac5686071b18b1e275b0d939a6ac28d0f"
+    },
+    {
+      "path": "pyproject.toml",
+      "change": "modified",
+      "sha256": "d28c4e68f87341507382274a7ff31da9058598c9d33fe390a7d0adc0c714d4bf"
+    },
+    {
+      "path": "requirements-web-tested.txt",
+      "change": "created",
+      "sha256": "2dcd087c03b0f85726b708f7d108d484493d3b276470e1db0735ee5d85530643"
+    },
+    {
+      "path": "scripts/export_openapi.py",
+      "change": "created",
+      "sha256": "f455ff97bc351e7320c567409111b685fa5cf43adb3f22e88f615440b47bee2d"
+    },
+    {
+      "path": "scripts/start.py",
+      "change": "created",
+      "sha256": "9765e4ef13e296e769141ac206e8ae1353757bc6efa17894244fc399c4e85f9b"
+    },
+    {
+      "path": "src/ghost_data/web/__init__.py",
+      "change": "created",
+      "sha256": "a190d943468c1ab2a3679c1d302893ba596569fbbb4b937323ec5714a35eab43"
+    },
+    {
+      "path": "src/ghost_data/web/app.py",
+      "change": "created",
+      "sha256": "d01e8d08e184d243a5b19ee1cc3f295c8889140fb5a25ccced7f1c60038706e7"
+    },
+    {
+      "path": "src/ghost_data/web/locking.py",
+      "change": "created",
+      "sha256": "beacf759688019b784efe8beb74bb107cced761c26f4dff2a0fa576258842d0f"
+    },
+    {
+      "path": "src/ghost_data/web/models.py",
+      "change": "created",
+      "sha256": "6e6715356815faea61c1fbd82e9c5ce7969d42e5b351fe3bdcd781bf185de85d"
+    },
+    {
+      "path": "src/ghost_data/web/repository.py",
+      "change": "created",
+      "sha256": "7f7cf8168dcd1b050c77940451928c7eb2e42f3474d0cf25958e5f0b26bb415e"
+    },
+    {
+      "path": "src/ghost_data/web/service.py",
+      "change": "created",
+      "sha256": "5faf0a0267d4ff5b51e1ef59ea57122dbbe9d2c40ca66300d557458864621e82"
+    },
+    {
+      "path": "tests/test_web.py",
+      "change": "created",
+      "sha256": "f3b7aacee390efe19f7612035c0d62a5782c71dd9b70d714d09278c11f15cdff"
+    }
+  ],
+  "excluded": "virtualenvs, node modules, builds, caches, private runtime databases and traces; this manifest excludes itself"
+}
