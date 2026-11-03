@@ -62,7 +62,9 @@ test("actual local LLM investigation streams real events and survives browser re
   await expect(page.getByText("Local model investigating").first()).toBeVisible(
     { timeout: 30000 },
   );
-  await expect.poll(() => new URL(page.url()).searchParams.get("run")).not.toBe(runId);
+  await expect
+    .poll(() => new URL(page.url()).searchParams.get("run"))
+    .not.toBe(runId);
   const cancelId = new URL(page.url()).searchParams.get("run");
   expect(cancelId).not.toBe(runId);
   await page.getByRole("button", { name: "Cancel run", exact: true }).click();

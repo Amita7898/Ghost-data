@@ -5,12 +5,15 @@ JavaScript resolution is locked in frontend/package-lock.json. The original appl
 docs/provenance-and-licensing.md for provenance and third-party boundaries.
 
 ```sh
+ruff check src tests scripts
+ruff format --check src tests scripts
 pytest -q
+npm run lint --prefix frontend
 npm test --prefix frontend
 npm run build --prefix frontend
 python scripts/check_setup.py --offline
 python scripts/start.py --offline
-# Another terminal, with installed Chrome on this Mac:
+# Another terminal, with Chrome installed locally:
 npm run test:e2e --prefix frontend
 ```
 
@@ -57,5 +60,5 @@ Never add private evidence, real personal data, original competition material,
 credentials or development chats. Keep model tools read-only; do not promote claims
 or partial snapshots to deletion proof. Changes to source contracts require targeted
 safety/contradiction/temporal tests and an independent proof review. Preserve genuine
-recordings and label all test runtimes distinctly. See docs/performance.md for
+recordings and label all test runtimes distinctly. See docs/evaluation.md for
 reproducible synthetic benchmarks and their limitations.

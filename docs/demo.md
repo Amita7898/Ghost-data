@@ -1,4 +1,4 @@
-# A short, authentic demonstration
+# Demo and media reproduction
 
 The README GIF is a 15-second accelerated navigation through the actual app, using
 independently authored synthetic inputs and genuine saved Qwen tool calls. It is
@@ -47,4 +47,4 @@ not the stored recordings. Existing recordings are never edited.
 Screenshots from real browser tests are under docs/screenshots. Do not replace
 synthetic inputs with personal data, private cases, terminal credentials or browser
 account chrome when recording public media. Avoid claiming the GIF runs at actual
-inference speed. Live timing and failures remain in performance.md.
+inference speed. Live timing and failures remain in evaluation.md.

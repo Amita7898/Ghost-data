@@ -15,6 +15,8 @@ and Ollama bound to loopback. There is no multi-user authentication.
 - Six scoped read-only agent tools cannot run arbitrary shell/SQL, inspect arbitrary
   files, call cloud providers, authorize deletion or change policy. Runtime redirects
   and remote-model configurations are rejected.
+- Identity lookups require an authorized audit and return only the selected subject’s
+  rows; a shared-alias ambiguity flag does not disclose another person’s history.
 - Model hypotheses require supported citations/source contracts. Shared evidence
   admission checks timestamps/availability, identity, scope and coverage; the policy
   kernel and independently implemented proof checks retain conclusion authority.
@@ -28,6 +30,8 @@ sandbox, source-authentication service or cryptographic attestation. Declared
 inventory completeness and source authenticity are assumptions. Missing evidence
 never proves absence. A hash proves consistency with registered bytes, not truth.
 Passing a few injection tests is not evidence of general prompt-injection immunity.
+Experimental model questions have scope/citation checks, not semantic validation of
+their premises. Do not treat their wording as evidence or permission to act.
 
 Do not expose either local service through a tunnel, public bind or reverse proxy
 without a separate authentication, authorization, rate-limit and deployment review.
@@ -37,8 +41,8 @@ No automatic data-retention/deletion interface is provided yet.
 
 ## Dependency review
 
-Current measured audit results and their scope are in docs/release-readiness.md and
-machine-readable docs/*dependency-audit.json. Audit databases change; recheck before
+Recorded audit results are in machine-readable docs/*dependency-audit.json.
+Current review checks and limitations are in docs/evaluation.md. Audit databases change; recheck before
 publishing and periodically afterward.
 
 The three moderate npm entries are one underlying advisory chain:
@@ -59,7 +63,8 @@ requirement, isolate or replace that build tool before enabling it.
 
 ## Reporting an issue
 
-Do not paste real evidence, secrets or private traces into public issues. Until a
-repository and private vulnerability-reporting channel are approved, report concerns
-privately to the project owner. After publication, enable GitHub private vulnerability
-reporting and document the approved contact. No email address is invented here.
+The repository is public. Do not paste real evidence, secrets or private traces into
+public issues. Use GitHub private vulnerability reporting if the repository Security
+tab offers “Report a vulnerability”; otherwise contact the owner privately through
+an existing trusted channel. Enabling that GitHub feature is recommended; this local
+review does not change repository settings or invent a contact address.

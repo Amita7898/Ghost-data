@@ -8,8 +8,8 @@ from pathlib import Path
 
 from ..agent.investigator import Investigator, Limits
 from ..agent.replay import replay
-from ..agent.runtime import Ollama
-from ..evidence import load
+from ..agent.runtime import Ollama, RuntimeFailure
+from ..evidence import load_bytes
 from ..models import Bundle
 from .models import CreateInvestigation
 from .repository import elapsed, now
@@ -58,22 +58,17 @@ class Service:
         self.pool.shutdown(wait=False, cancel_futures=True)
 
     def parse(self, raw):
-        path = self.repo.root / ("incoming-" + __import__("uuid").uuid4().hex + ".json")
-        try:
-            with path.open("xb") as f:
-                f.write(raw)
-            return load(path)
-        finally:
-            path.unlink(missing_ok=True)
+        return load_bytes(raw)
 
     def configured(self, investigation, bundle):
         data = bundle.model_dump(mode="json")
         if investigation["audit_at"]:
             data["request"]["audit_at"] = investigation["audit_at"]
         if investigation["scope"] is not None:
-            key = lambda t: json.dumps(
-                [t["system"], t["resource"]], separators=(",", ":")
-            )
+
+            def key(t):
+                return json.dumps([t["system"], t["resource"]], separators=(",", ":"))
+
             keys = {key(t) for t in data["targets"]}
             if not set(investigation["scope"]) <= keys:
                 raise ValueError("Configured scope references unknown resources")
@@ -182,6 +177,8 @@ class Service:
                 if status == "completed" and trace["execution"] == "live_local"
                 else "cancelled"
                 if status == "cancelled"
+                else "verification_failed"
+                if status == "verification_failed"
                 else "failed"
             )
             repo.finish(
@@ -189,11 +186,13 @@ class Service:
                 status=final,
                 finished_at=now(),
                 report=trace["report"],
-                conclusion=trace["report"]["conclusion"],
+                conclusion=trace["report"]["conclusion"] if trace["report"] else None,
                 usage=trace["usage"],
                 trace=trace,
                 error=None
                 if final in ("completed", "cancelled")
+                else "Independent evidence verification failed. No audit conclusion published."
+                if final == "verification_failed"
                 else "Investigation stopped: " + status,
             )
         except Exception as exc:  # noqa: BLE001 - worker boundary persists failures
@@ -201,9 +200,11 @@ class Service:
             message = (
                 "Cancellation completed"
                 if cancelled
-                else "Local investigation unavailable or failed. Check Ollama with ghost-data doctor. ("
-                + type(exc).__name__
-                + ")"
+                else "Local model unavailable. Check Ollama with ghost-data doctor."
+                if isinstance(exc, RuntimeFailure)
+                else "Evidence could not be loaded or validated. Review the registered input."
+                if isinstance(exc, ValueError)
+                else "Investigation failed internally. Recorded activity is preserved."
             )
             repo.finish(
                 id,
@@ -260,11 +261,13 @@ class Service:
             self.repo.event(run["id"], e)
         self.repo.update(
             run["id"],
-            status="completed",
+            status="verification_failed"
+            if trace["status"] == "verification_failed"
+            else "completed",
             recorded_status=trace["status"],
             finished_at=now(),
             report=trace["report"],
-            conclusion=trace["report"]["conclusion"],
+            conclusion=trace["report"]["conclusion"] if trace["report"] else None,
             usage=trace["usage"],
             trace=trace,
         )

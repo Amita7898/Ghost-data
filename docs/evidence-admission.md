@@ -1,50 +1,33 @@
-# Evidence admission: Milestone 2.1
+# Evidence admission
 
-All 18 unsupported verified cases in the original seed-91827 large benchmark
-were late_ingestion cases. IDs and original scoring details are preserved in
-milestone-21-investigation.json. No other failure family contributed.
+| Timestamp | Meaning |
+|---|---|
+| `event_at` | Underlying operation; not proof of its result |
+| `observed_at` | When the resource state was observed |
+| `captured_at` | When its source was captured |
+| `ingested_at` | When the investigation received it |
+| `available_at` | Additional source availability restriction |
+| `audit_at` | State reconstruction cutoff |
+| `evidence_cutoff` | Optional stricter availability cutoff |
 
-Temporal semantics:
-- event_at: the underlying operation/event; not proof of resulting state.
-- observed_at: when the represented resource state was actually observed.
-- captured_at: when the source artifact/readback was captured.
-- ingested_at: when the investigation received it; distinct from capture.
-- available_at: any additional source-release/availability constraint.
-- audit_at: the state reconstruction cutoff.
-- evidence_cutoff: optional stricter availability cutoff, never after audit_at.
+Events/observations must not follow `audit_at`. Capture, ingestion and explicit
+availability must not follow `evidence_cutoff` (default `audit_at`). Equality is
+admitted; chronology must be coherent. Current proof requires a subject-attributed
+READBACK exactly at the audit cutoff. Earlier observations have no implied continuity.
 
-Events and observations must be no later than audit_at. Capture, ingestion and
-explicit availability must be no later than evidence_cutoff (audit_at by default).
-Equality is admitted. Supplied chronology must be coherent. For current proof,
-READBACK observations must still be exactly at audit_at; earlier observations do
-not silently establish continuity. Claims never become state proof.
+Missing ingestion time is not replaced with capture time. For backward-compatible
+source-only audits it is not required by default; when supplied it is always checked.
+Set `request.require_ingestion_time=true` to require a receipt. Missing required or
+late ingestion makes the observation ineligible. Typed aware timestamps reject naive,
+malformed or contradictory legacy/explicit metadata. Equivalent differently encoded
+legacy/explicit timestamps are conservatively rejected if their raw values conflict.
 
-Legacy fields.event_at and fields.ingested_at are parsed into typed aware-datetime
-fields. Conflicting explicit and legacy values are rejected, as are naive or
-malformed timestamps. Different timestamp strings for the same instant are
-conservatively treated as conflicting when both encodings are supplied.
+The canonical admission predicate checks time, resource and subject for policy,
+independent proof, tools, and LLM proposals. A model cannot waive it or register a
+new evidence item. Eligibility is rechecked for advisory follow-up citations, including
+stale-cache cases. Source authenticity is still an explicit assumption.
 
-Missing ingestion time remains unknown; it is not replaced with capture time.
-For backward compatibility the default rule audits source availability and does
-not require an ingestion receipt when none is supplied. Any supplied receipt is
-always enforced. Set request.require_ingestion_time=true to require an explicit
-receipt; missing ingestion then makes evidence inadmissible. This distinction
-supports source-only historical artifacts while allowing strict investigation
-availability. No late supplied ingestion is waived by the compatibility rule.
-
-Canonical admission_reasons in evidence.py checks timestamps, chronology, exact
-system/resource identity and subject attribution. Both policy evaluation and the
-independent verifier use this gate. The verifier independently rechecks state
-proof and citation completeness; it does not trust policy assessments. Future
-LLM proposals must resolve citations against the registered bundle and pass
-check(bundle, report); model-supplied observations must undergo schema validation
-and source registration, never enter as trusted proof directly.
-
-German refusal patterns recognize supported negative forms without adding German
-affirmative authorization. Unsupported wording and double negation remain
-ambiguous. This is a conservative grammar, not general multilingual understanding.
-
-Remaining limits: metadata/source authenticity is trusted at the adapter boundary;
-unknown timestamps need investigation-specific requirements; old observations
-have no continuity model; identity ambiguity remains unresolved. Tests cover
-structured synthetic inputs, not unrestricted language or real connector security.
+Historically, all 18 unsupported verified conclusions in the pre-hardening 512-case
+suite came from late ingestion. Fixed seeds after admission hardening had none.
+The old reports remain recoverable from `v0.4.0`; [evaluation](evaluation.md) distinguishes
+historical measurements from the current rerun. No private competition truth is used.

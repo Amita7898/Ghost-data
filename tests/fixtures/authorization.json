@@ -1,0 +1,386 @@
+[
+  [
+    "Delete my data.",
+    "AUTHORIZED"
+  ],
+  [
+    "I want my account deleted.",
+    "AUTHORIZED"
+  ],
+  [
+    "Please erase all my personal data.",
+    "AUTHORIZED"
+  ],
+  [
+    "Please delete my account.",
+    "AUTHORIZED"
+  ],
+  [
+    "I'd like you to delete my account",
+    "AUTHORIZED"
+  ],
+  [
+    "Please remove my account and personal data",
+    "AUTHORIZED"
+  ],
+  [
+    "Delete my account. How long will it take?",
+    "AUTHORIZED"
+  ],
+  [
+    "Delete my account, I may come back later though",
+    "AUTHORIZED"
+  ],
+  [
+    "Can you delete my account, please?",
+    "AUTHORIZED"
+  ],
+  [
+    "Could you please erase my personal information?",
+    "AUTHORIZED"
+  ],
+  [
+    "Would you remove my profile?",
+    "AUTHORIZED"
+  ],
+  [
+    "I would like my account to be deleted.",
+    "AUTHORIZED"
+  ],
+  [
+    "I'd like my personal data erased.",
+    "AUTHORIZED"
+  ],
+  [
+    "I request my data to be permanently removed.",
+    "AUTHORIZED"
+  ],
+  [
+    "Please delete all of my records.",
+    "AUTHORIZED"
+  ],
+  [
+    "Remove all my personal information.",
+    "AUTHORIZED"
+  ],
+  [
+    "Please delete the data you hold about me.",
+    "AUTHORIZED"
+  ],
+  [
+    "Erase all information you store on me.",
+    "AUTHORIZED"
+  ],
+  [
+    "Please do delete my profile.",
+    "AUTHORIZED"
+  ],
+  [
+    "DELETE MY ACCOUNT!",
+    "AUTHORIZED"
+  ],
+  [
+    "Delete my account. Do not delete records required by law.",
+    "AUTHORIZED"
+  ],
+  [
+    "Supprimez mon compte s'il vous plaît",
+    "AUTHORIZED"
+  ],
+  [
+    "Veuillez effacer mes données personnelles.",
+    "AUTHORIZED"
+  ],
+  [
+    "Je demande la suppression de mon compte.",
+    "AUTHORIZED"
+  ],
+  [
+    "Je souhaite la suppression de mes données.",
+    "AUTHORIZED"
+  ],
+  [
+    "Por favor, elimine mi cuenta.",
+    "AUTHORIZED"
+  ],
+  [
+    "Borra mis datos personales.",
+    "AUTHORIZED"
+  ],
+  [
+    "Eliminen todos mis datos.",
+    "AUTHORIZED"
+  ],
+  [
+    "Apague minha conta, por favor.",
+    "AUTHORIZED"
+  ],
+  [
+    "Exclua todos os meus dados pessoais.",
+    "AUTHORIZED"
+  ],
+  [
+    "Solicito a exclusão permanente da conta.",
+    "AUTHORIZED"
+  ],
+  [
+    "Peço a exclusão dos meus dados.",
+    "AUTHORIZED"
+  ],
+  [
+    "Bitte löschen Sie mein Konto.",
+    "AUTHORIZED"
+  ],
+  [
+    "Bitte löschen Sie alle meine persönlichen Daten.",
+    "AUTHORIZED"
+  ],
+  [
+    "Bitte meine Daten löschen.",
+    "AUTHORIZED"
+  ],
+  [
+    "Do not delete my account.",
+    "DECLINED"
+  ],
+  [
+    "Don't erase my personal information.",
+    "DECLINED"
+  ],
+  [
+    "Never remove my data.",
+    "DECLINED"
+  ],
+  [
+    "I am not asking for deletion.",
+    "DECLINED"
+  ],
+  [
+    "I do not want my account deleted.",
+    "DECLINED"
+  ],
+  [
+    "Cancel my deletion request.",
+    "DECLINED"
+  ],
+  [
+    "Withdraw the erasure request.",
+    "DECLINED"
+  ],
+  [
+    "This is not a request to erase my data.",
+    "DECLINED"
+  ],
+  [
+    "Delete my account. Actually, do not delete it.",
+    "DECLINED"
+  ],
+  [
+    "Ne supprimez pas mon compte.",
+    "DECLINED"
+  ],
+  [
+    "N'effacez jamais mes données.",
+    "DECLINED"
+  ],
+  [
+    "No borres mi cuenta.",
+    "DECLINED"
+  ],
+  [
+    "No elimines mis datos.",
+    "DECLINED"
+  ],
+  [
+    "Não apague minha conta.",
+    "DECLINED"
+  ],
+  [
+    "Nunca exclua meus dados.",
+    "DECLINED"
+  ],
+  [
+    "Bitte löschen Sie mein Konto nicht.",
+    "DECLINED"
+  ],
+  [
+    "Mein Konto darf nicht gelöscht werden.",
+    "DECLINED"
+  ],
+  [
+    "Bitte mein Konto niemals löschen.",
+    "DECLINED"
+  ],
+  [
+    "I do not want to cancel my deletion request.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Do not not delete my data.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Bitte mein Konto nicht nicht löschen.",
+    "AMBIGUOUS"
+  ],
+  [
+    "I might delete my account.",
+    "AMBIGUOUS"
+  ],
+  [
+    "I may want you to delete my account.",
+    "AMBIGUOUS"
+  ],
+  [
+    "How do I delete my account?",
+    "AMBIGUOUS"
+  ],
+  [
+    "Can I delete my account?",
+    "AMBIGUOUS"
+  ],
+  [
+    "If I leave, delete my account.",
+    "AMBIGUOUS"
+  ],
+  [
+    "If I delete my account, what happens?",
+    "AMBIGUOUS"
+  ],
+  [
+    "I am considering asking you to erase my data.",
+    "AMBIGUOUS"
+  ],
+  [
+    "I'm not sure I want my account deleted.",
+    "AMBIGUOUS"
+  ],
+  [
+    "He said 'delete my account'.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Use the phrase delete my account as an example.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Delete my data except my profile.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Only delete my profile.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Please delete my colleague's account.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Supprimez mon compte si je pars.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Wie kann ich mein Konto löschen?",
+    "AMBIGUOUS"
+  ],
+  [
+    "Unsubscribe me from marketing.",
+    "NON_DELETION"
+  ],
+  [
+    "Please export my data.",
+    "NON_DELETION"
+  ],
+  [
+    "Correct my email address.",
+    "NON_DELETION"
+  ],
+  [
+    "Let me download my records.",
+    "NON_DELETION"
+  ],
+  [
+    "I want access to my account information.",
+    "NON_DELETION"
+  ],
+  [
+    "Cancel my subscription.",
+    "NON_DELETION"
+  ],
+  [
+    "Delete me from your marketing mailing list.",
+    "NON_DELETION"
+  ],
+  [
+    "Please help with my account.",
+    "AMBIGUOUS"
+  ],
+  [
+    "I cannot decide about deletion.",
+    "AMBIGUOUS"
+  ],
+  [
+    "I haven't asked you to delete my account.",
+    "DECLINED"
+  ],
+  [
+    "I did not request that you delete my account.",
+    "DECLINED"
+  ],
+  [
+    "You are not authorized to delete my account.",
+    "DECLINED"
+  ],
+  [
+    "This tutorial says delete my account.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Is it possible to delete my account?",
+    "AMBIGUOUS"
+  ],
+  [
+    "Do I have to delete my account?",
+    "AMBIGUOUS"
+  ],
+  [
+    "'Delete my data.'",
+    "AMBIGUOUS"
+  ],
+  [
+    "I previously asked you to delete my account.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Do not delete records required by law.",
+    "AMBIGUOUS"
+  ],
+  [
+    "Please delete my account and stop marketing emails.",
+    "AUTHORIZED"
+  ],
+  [
+    "Don't send me emails. Delete my data.",
+    "AUTHORIZED"
+  ],
+  [
+    "No elimines mis datos. Borra mi cuenta.",
+    "DECLINED"
+  ],
+  [
+    "I refuse to delete my account.",
+    "DECLINED"
+  ],
+  [
+    "I decline to delete my data.",
+    "DECLINED"
+  ],
+  [
+    "I no longer want to delete my account.",
+    "DECLINED"
+  ],
+  [
+    "Support told me to delete my data. I need help logging in.",
+    "AMBIGUOUS"
+  ]
+]

@@ -756,7 +756,7 @@ export interface components {
              * Status
              * @enum {string}
              */
-            status: "queued" | "running" | "cancelling" | "completed" | "cancelled" | "failed" | "interrupted";
+            status: "queued" | "running" | "cancelling" | "completed" | "cancelled" | "failed" | "interrupted" | "verification_failed";
             /** Recorded Status */
             recorded_status?: string | null;
             /** Created At */

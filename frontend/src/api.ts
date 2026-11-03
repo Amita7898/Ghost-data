@@ -97,4 +97,10 @@ export function parseSource(source: string) {
 }
 
 export const terminal = (run: Run) =>
-  ["completed", "cancelled", "failed", "interrupted"].includes(run.status);
+  [
+    "completed",
+    "cancelled",
+    "failed",
+    "interrupted",
+    "verification_failed",
+  ].includes(run.status);

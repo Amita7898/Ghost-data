@@ -2566,7 +2566,8 @@
               "completed",
               "cancelled",
               "failed",
-              "interrupted"
+              "interrupted",
+              "verification_failed"
             ],
             "title": "Status"
           },

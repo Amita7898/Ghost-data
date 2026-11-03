@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 
 root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / "src"))
-from ghost_data.web.app import create_app
+from ghost_data.web.app import create_app  # noqa: E402 -- standalone source-checkout script
 
 with TemporaryDirectory() as directory:
     app = create_app(root, Path(directory), offline=True)

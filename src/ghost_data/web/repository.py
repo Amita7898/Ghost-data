@@ -1,11 +1,14 @@
 """SQLite repository. All evidence paths are opaque server-generated keys."""
 
+import hashlib
 import json
 import sqlite3
 from contextlib import contextmanager
 from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
+
+from ..execution import TERMINAL_STATUSES
 
 
 def now():
@@ -126,7 +129,6 @@ class Repository:
         return path
 
     def read(self, id):
-        import hashlib
 
         artifact = self.artifact(id)
         try:
@@ -142,7 +144,6 @@ class Repository:
         return raw
 
     def store(self, investigation_id, raw, filename, source="upload"):
-        import hashlib
 
         self.investigation(investigation_id)
         id = new_id()
@@ -267,8 +268,7 @@ class Repository:
             ).fetchone()
             if (
                 state
-                and state["status"]
-                in ("completed", "failed", "cancelled", "interrupted")
+                and state["status"] in TERMINAL_STATUSES
                 and event["kind"] != "execution_interrupted"
             ):
                 return
@@ -368,9 +368,12 @@ class Repository:
             current = db.execute(
                 "SELECT status,created_at FROM web_runs WHERE id=?", (str(id),)
             ).fetchone()
-            if current["status"] in ("completed", "failed", "cancelled", "interrupted"):
+            if current["status"] in TERMINAL_STATUSES:
                 return
-            if current["status"] == "cancelling":
+            if (
+                current["status"] == "cancelling"
+                and fields["status"] != "verification_failed"
+            ):
                 fields["status"] = "cancelled"
             values = [
                 json.dumps(v)

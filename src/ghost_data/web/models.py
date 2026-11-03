@@ -4,11 +4,8 @@ from uuid import UUID
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
 
 from ..agent.investigator import Limits
+from ..execution import RunStatus as Status
 from ..models import Bundle, Report
-
-Status = Literal[
-    "queued", "running", "cancelling", "completed", "cancelled", "failed", "interrupted"
-]
 
 
 class Model(BaseModel):

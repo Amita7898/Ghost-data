@@ -1,7 +1,7 @@
-# Synthetic world generation and benchmarking (Milestone 2)
+# Synthetic benchmark methodology
 
 This document describes the structured synthetic benchmark. The local LLM and
-React/FastAPI app are now implemented. See performance.md for current results and
+React/FastAPI app are now implemented. See evaluation.md for current results and
 local-agent.md for the separate real-model comparison runner.
 
 ## Reproduce
@@ -25,7 +25,8 @@ identity history timestamps, and audit dates, not just file names.
 The representative 32-case seed-42 suite is included under
 `benchmarks/representative/`. Medium seed 2026 and large seed 91827 suites can be
 regenerated using the same commands with the corresponding size and seed.
-Results from all three runs are retained under `benchmarks/results-*`.
+Current summarized measurements are in evaluation.md. Detailed historical reports
+are recoverable from `v0.4.0`; newly generated reports belong in ignored local storage.
 
 ## Layers
 
@@ -103,9 +104,9 @@ as prompt examples. Never publish competition truth, private evidence, or chats.
 Observations must satisfy the explicit observation, capture and ingestion-availability
 rules at the audit cutoff. Milestone 2.1 made ingestion first-class, independently
 enforced admission in the proof checker, and conservatively corrected German
-refusal handling. The earlier M2 unsupported verified results remain recorded in
-milestone-2-results.md; after hardening all unchanged structured seeds passed.
-See evidence-admission.md and milestone-21-comparison.json for precise semantics.
+refusal handling. The earlier unsupported verified results remain in the unchanged v0.4.0 history;
+after hardening all unchanged structured seeds passed. See evidence-admission.md
+for precise semantics and evaluation.md for current checks.
 
 ## Scope and limitations
 
@@ -119,7 +120,7 @@ nothing about a future model's resistance. Source authenticity is assumed at the
 adapter boundary; arbitrary forged READBACKs remain outside the current trust
 model. No PDF/OCR parsing, fuzzing or real connector throughput is benchmarked.
 
-## Milestone 3 comparison interface
+## Model comparison interface
 
 `RuntimeAdapter.predict(visible_bytes) -> report` supports registered adapters.
 Mode names are `deterministic`, `extraction`, `agent`, and `agent_challenger`.

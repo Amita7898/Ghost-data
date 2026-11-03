@@ -5,8 +5,9 @@ network access; subsequent offline replay does not require an AI service. Source
 
 The pinned Python environment is in requirements-web-tested.txt; the exact npm
 resolution is frontend/package-lock.json (`npm ci`, not a floating fresh install).
-Python 3.14/macOS arm64 and Node 25 were tested locally; the CI matrix additionally
-targets Python 3.12/Node 22. Native Windows execution remains untested. Use a current
+The original release ran on Python 3.12/3.14 in CI and Python 3.14/macOS arm64
+locally. Pre-release verification additionally ran the full suite on isolated Python 3.12.16,
+Python 3.13.7 and Python 3.14.0 with Node 25. CI still targets Python 3.12/3.14 and Node 22. Native Windows execution remains untested. Use a current
 Node 22 release (22.12+) or newer supported LTS release.
 
 After installation/build, `python scripts/check_setup.py --offline` checks package
@@ -23,6 +24,7 @@ items with the corresponding setup command.
 | Backend unavailable | Check the Python server terminal and URL; a model service cannot replace the backend |
 | Model unavailable in offline mode | Expected. Choose a recorded demo; live starts are intentionally disabled |
 | Database already owned by another backend | Use one backend per data directory, or choose another private `--data-dir` |
+| Proof verification failed | Read the recorded validation errors; no conclusion is published. Ollama connectivity cannot repair invalid evidence |
 | Failed/interrupted/cancelled run | Review actual saved events and retry explicitly; execution does not silently resume |
 
 Default application storage is `.localdata/`, ignored by Git. To keep sensitive

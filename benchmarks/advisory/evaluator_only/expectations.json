@@ -1,0 +1,38 @@
+{
+  "missing_readback": {
+    "input_sha256": "471a1afa250a827b44c83c333094c40081524c6d6db3344a784a400403a0e6fc",
+    "expected_conclusion": "INCONCLUSIVE",
+    "advisory_applicable": true,
+    "gap": "subject-attributed cutoff readback"
+  },
+  "partial_snapshot": {
+    "input_sha256": "47efa39d9fd28f30303b1fb00db24d8e46c9fcf917bd52f977a65a6bd05efabe",
+    "expected_conclusion": "INCONCLUSIVE",
+    "advisory_applicable": true,
+    "gap": "exact resource coverage"
+  },
+  "missing_field_inventory": {
+    "input_sha256": "dbf7ef4e7051044ac87e1d9aa95981149266d1a67e41c0555fa492e67416066f",
+    "expected_conclusion": "INCONCLUSIVE",
+    "advisory_applicable": true,
+    "gap": "explicit phone field readback"
+  },
+  "conflicting_readbacks": {
+    "input_sha256": "096daac19cf4c5ae2b1731c19251ee1b2310f469c3c66785510a8b319a3b59f9",
+    "expected_conclusion": "INCONCLUSIVE",
+    "advisory_applicable": true,
+    "gap": "reconcile contradictory source observations"
+  },
+  "complete_control": {
+    "input_sha256": "34940849d1ee0ccbcde16178ba356e1008a63c1c90008e4b097cf674b2a06cc1",
+    "expected_conclusion": "VERIFIED_WITHIN_SCOPE",
+    "advisory_applicable": false,
+    "gap": null
+  },
+  "refusal_control": {
+    "input_sha256": "d7b28fc7080474b89574e91c77e4309412efe04e48fe0b0256b9201d1c8ecf40",
+    "expected_conclusion": "NOT_APPLICABLE",
+    "advisory_applicable": false,
+    "gap": null
+  }
+}

@@ -9,6 +9,7 @@ import re
 import sqlite3
 from contextlib import asynccontextmanager
 from pathlib import Path
+from urllib.parse import urlsplit
 from uuid import UUID
 
 from fastapi import FastAPI, Header, HTTPException, Query, Request
@@ -19,6 +20,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import ValidationError
 
 from ..evidence import admission_reasons
+from ..execution import TERMINAL_STATUSES
 from ..identity import subject_for_request
 from ..models import Bundle
 from .locking import exclusive_file
@@ -38,10 +40,10 @@ from .models import (
 from .repository import IntegrityFailure, Repository
 from .service import EXAMPLES, MAX_BYTES, Service
 
-TERMINAL = {"completed", "cancelled", "failed", "interrupted"}
+TERMINAL = TERMINAL_STATUSES
 ALLOWED_ORIGINS = {
     f"http://{host}:{port}"
-    for host in ("127.0.0.1", "localhost")
+    for host in ("127.0.0.1", "localhost", "[::1]")
     for port in (8000, 5173)
 }
 
@@ -99,8 +101,20 @@ def create_app(project_root=None, data_dir=None, runtime_factory=None, offline=N
 
     @app.middleware("http")
     async def local_guard(request, call_next):
-        host = request.headers.get("host", "").split(":")[0]
-        if host not in ("localhost", "127.0.0.1"):
+        try:
+            authority = urlsplit("//" + request.headers.get("host", ""))
+            host = authority.hostname
+            valid_authority = (
+                authority.username is None
+                and authority.password is None
+                and not authority.path
+                and not authority.query
+                and not authority.fragment
+            )
+            authority.port  # Validate numeric/range syntax without trusting the header.
+        except ValueError:
+            host, valid_authority = None, False
+        if not valid_authority or host not in ("localhost", "127.0.0.1", "::1"):
             return JSONResponse(
                 {"code": "HOST_DENIED", "message": "Localhost only"}, 403
             )
@@ -489,7 +503,7 @@ def create_app(project_root=None, data_dir=None, runtime_factory=None, offline=N
                 ],
             ]
         if run["error"]:
-            lines += ["", "Error: " + run["error"]]
+            lines += ["", "Error: " + markdown_text(run["error"])]
         return Response(
             "\n".join(lines) + "\n",
             media_type="text/markdown",

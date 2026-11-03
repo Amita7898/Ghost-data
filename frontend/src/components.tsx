@@ -28,7 +28,13 @@ export function Badge({ value, mode }: { value: string; mode?: boolean }) {
           value,
         )
       ? "green"
-      : ["failed", "VIOLATED", "NON_COMPLIANT", "rejected"].includes(value)
+      : [
+            "failed",
+            "verification_failed",
+            "VIOLATED",
+            "NON_COMPLIANT",
+            "rejected",
+          ].includes(value)
         ? "red"
         : ["running", "queued"].includes(value)
           ? "purple"
@@ -213,7 +219,9 @@ const eventNames: Record<string, string> = {
   tool_returned: "Evidence tool returned",
   hypothesis_validated: "Hypothesis checked",
   model_summary: "Model decision summary",
+  follow_up_proposed: "Suggested follow-up · experimental",
   deterministic_conclusion: "Independent audit assessment",
+  verification_failed: "Evidence verification failed",
   runtime_ready: "Local model ready",
   run_queued: "Investigation admitted",
   run_started: "Live execution started",
@@ -241,7 +249,11 @@ export function EventCard({
       data-testid="event-card"
     >
       <div className="event-icon">
-        {decision ? (
+        {["verification_failed", "error", "completion_rejected"].includes(
+          event.kind,
+        ) ? (
+          <AlertTriangle size={16} />
+        ) : decision ? (
           accepted ? (
             <ShieldCheck size={16} />
           ) : (
@@ -249,7 +261,7 @@ export function EventCard({
           )
         ) : event.kind === "tool_requested" ? (
           <Terminal size={16} />
-        ) : event.kind === "model_summary" ? (
+        ) : ["model_summary", "follow_up_proposed"].includes(event.kind) ? (
           <GitBranch size={16} />
         ) : (
           <Check size={15} />
@@ -292,7 +304,36 @@ export function EventCard({
             <p>{d.summary}</p>
           </>
         )}
+        {event.kind === "follow_up_proposed" && (
+          <>
+            <span className="eyebrow amber-text">
+              EXPERIMENTAL · UNVERIFIED MODEL QUESTION · NO ACTION AUTHORIZED
+            </span>
+            <p>{d.proposal?.question}</p>
+            <p>
+              {d.linked ? "Scope and citation links checked" : "Links rejected"}
+              : {d.reason}
+            </p>
+            {Array.isArray(d.sources) &&
+              d.sources.map((s: string) => (
+                <button
+                  className="source-link"
+                  key={s}
+                  onClick={() => onSource(s)}
+                >
+                  Inspect cited source
+                </button>
+              ))}
+          </>
+        )}
         {d.message && <p>{d.message}</p>}
+        {event.kind === "verification_failed" && Array.isArray(d.errors) && (
+          <ul>
+            {d.errors.map((error: string, i: number) => (
+              <li key={i}>{error}</li>
+            ))}
+          </ul>
+        )}
         {source && (
           <button className="source-link" onClick={() => onSource(source)}>
             <FileJson size={13} />
@@ -320,7 +361,7 @@ export function ResultPanel({
   run: Run | null;
   onEvidence: (id: string) => void;
 }) {
-  const report = run?.report;
+  const report = run?.status === "verification_failed" ? null : run?.report;
   return (
     <aside className="results-column">
       <div className="section-heading">
@@ -331,13 +372,27 @@ export function ResultPanel({
         <div className="panel result-placeholder">
           <ShieldCheck size={32} />
           <h3>
-            {run && ["failed", "cancelled", "interrupted"].includes(run.status)
+            {run &&
+            [
+              "failed",
+              "cancelled",
+              "interrupted",
+              "verification_failed",
+            ].includes(run.status)
               ? "No assessment published"
               : "Evidence before certainty."}
           </h3>
           <p>
-            {run && ["failed", "cancelled", "interrupted"].includes(run.status)
-              ? "This execution did not complete. Review its events and retry when ready. No successful conclusion was issued."
+            {run &&
+            [
+              "failed",
+              "cancelled",
+              "interrupted",
+              "verification_failed",
+            ].includes(run.status)
+              ? run.status === "verification_failed"
+                ? "Independent evidence verification failed. Review the recorded validation errors; no audit conclusion was published."
+                : "This execution did not complete. Review its events and retry when ready. No successful conclusion was issued."
               : "The independent validator will publish its assessment here. Model proposals never set the conclusion."}
           </p>
         </div>
@@ -369,7 +424,7 @@ export function ResultPanel({
               <h3>Policy obligations</h3>
               <span className="count">{report.assessments.length}</span>
             </div>
-            {report.assessments.map((a, i) => (
+            {report.assessments.map((a) => (
               <div className="obligation" key={a.system + a.resource}>
                 <div>
                   <code>{a.resource}</code>

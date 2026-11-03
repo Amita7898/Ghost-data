@@ -293,7 +293,12 @@ export default function Workspace({ runtime }: { runtime: Runtime | null }) {
                 <Play size={15} />
               )}
               {run &&
-              ["failed", "cancelled", "interrupted"].includes(run.status)
+              [
+                "failed",
+                "cancelled",
+                "interrupted",
+                "verification_failed",
+              ].includes(run.status)
                 ? "Retry live"
                 : "Start live"}
             </button>

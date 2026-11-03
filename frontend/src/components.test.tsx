@@ -107,3 +107,49 @@ it("source dialog focuses a control, traps reverse tab and restores previous foc
   expect(previous).toHaveFocus();
   previous.remove();
 });
+
+it("withholds results when independent verification fails", () => {
+  render(
+    <ResultPanel
+      run={
+        {
+          status: "verification_failed",
+          report: { conclusion: "VERIFIED_WITHIN_SCOPE" },
+        } as any
+      }
+      onEvidence={() => {}}
+    />,
+  );
+  expect(screen.getByText("No assessment published")).toBeInTheDocument();
+  expect(screen.queryByText("verified within scope")).not.toBeInTheDocument();
+  expect(
+    screen.getByText(/Independent evidence verification failed/),
+  ).toBeInTheDocument();
+});
+it("shows proof errors and treats suggested follow-ups as unverified", () => {
+  const error = {
+    seq: 1,
+    elapsed_seconds: 1,
+    kind: "verification_failed",
+    data: { errors: ["Cutoff readback missing"] },
+  };
+  render(<EventCard event={error} onSource={() => {}} />);
+  expect(screen.getByText("Cutoff readback missing")).toBeInTheDocument();
+  render(
+    <EventCard
+      event={{
+        seq: 2,
+        elapsed_seconds: 2,
+        kind: "follow_up_proposed",
+        data: {
+          linked: true,
+          proposal: { question: "Need a complete snapshot?" },
+          sources: [],
+        },
+      }}
+      onSource={() => {}}
+    />,
+  );
+  expect(screen.getByText(/UNVERIFIED MODEL QUESTION/)).toBeInTheDocument();
+  expect(screen.queryByText("accepted")).not.toBeInTheDocument();
+});

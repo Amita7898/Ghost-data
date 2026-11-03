@@ -1,8 +1,0 @@
-{
-  "candidate_files": 260,
-  "history_blobs": 222,
-  "working_tree_findings": [],
-  "history_findings": [],
-  "passed": true,
-  "scope": "Git-selected publication candidates and all reachable history; ignores untracked private data, cannot establish legal rights or exhaustive PII absence"
-}
