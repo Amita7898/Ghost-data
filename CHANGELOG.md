@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — proposed v0.5.0
+## v0.5.0 — 2026-11-03
 
 - Preserve tool activity, hypotheses, usage and proof errors when independent
   verification fails; withhold the audit report and show a terminal failure state
@@ -24,7 +24,6 @@
   identifier reassignment coverage. Retain documented benchmark failures and latency.
 - Consolidate public documentation and archive redundant report/prototype snapshots.
   Keep replay inputs/recordings, benchmark generators, independent fixtures, security
-  disclosures and provenance. No public Git history rewrite or release performed.
+  disclosures and provenance.
 
-The published v0.4.0 tag/release and package version remain unchanged during review.
 Current checks and limitations are documented in [evaluation](docs/evaluation.md).

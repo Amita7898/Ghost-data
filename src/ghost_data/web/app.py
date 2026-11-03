@@ -76,7 +76,7 @@ def create_app(project_root=None, data_dir=None, runtime_factory=None, offline=N
 
     app = FastAPI(
         title="Ghost Data Local Investigation API",
-        version="0.4.0",
+        version="0.5.0",
         lifespan=lifespan,
         responses={
             400: {"model": Error},
@@ -214,7 +214,7 @@ def create_app(project_root=None, data_dir=None, runtime_factory=None, offline=N
 
     @app.get("/api/v1/health")
     def health():
-        return {"status": "ok", "local_only": True, "version": "0.4.0"}
+        return {"status": "ok", "local_only": True, "version": "0.5.0"}
 
     @app.get("/api/v1/runtime", response_model=RuntimeStatus)
     async def runtime():
